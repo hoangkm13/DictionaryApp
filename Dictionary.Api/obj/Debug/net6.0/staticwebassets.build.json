@@ -1,0 +1,19 @@
+{
+  "Version": 1,
+  "Hash": "eMZZOvMrOdFsBluRch0p7TCkdXRdrw0Utg2A7SrrRXE=",
+  "Source": "Dictionary.Api",
+  "BasePath": "_content/Dictionary.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "Dictionary.Api/wwwroot",
+      "Source": "Dictionary.Api",
+      "ContentRoot": "/home/hoangkm/RiderProjects/Dictionary.App/Dictionary.Api/wwwroot/",
+      "BasePath": "_content/Dictionary.Api",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": []
+}

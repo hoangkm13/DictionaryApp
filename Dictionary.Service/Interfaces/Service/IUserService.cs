@@ -21,7 +21,7 @@ public interface IUserService : IBaseService
     ///     Đăng ký
     /// </summary>
     /// <param name="model"></param>
-    Task<DAResult> Signup(SignupModel model);
+    Task<ApiResult> Signup(SignupModel model);
 
     /// <summary>
     ///     Reset Password

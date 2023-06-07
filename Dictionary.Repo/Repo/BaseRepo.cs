@@ -547,7 +547,7 @@ public class BaseRepo : IBaseRepo
         return value;
     }
 
-    public virtual async Task<DAResult> GetDataTable<T>(FilterTable filterTable)
+    public virtual async Task<ApiResult> GetDataTable<T>(FilterTable filterTable)
     {
         var table = GetTableName(typeof(T));
         var columnSql = ParseColumn(string.Join(",", filterTable.fields));
@@ -594,7 +594,7 @@ public class BaseRepo : IBaseRepo
             Provider.CloseConnection(cnn);
         }
 
-        return new DAResult(200, Resources.getDataSuccess, "", result, totalRecord);
+        return new ApiResult(200, Resources.getDataSuccess, "", result, totalRecord);
     }
 
     #endregion

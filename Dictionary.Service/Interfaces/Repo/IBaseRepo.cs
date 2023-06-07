@@ -62,5 +62,5 @@ public interface IBaseRepo
     /// <summary>
     ///     Lấy dữ liệu bảng
     /// </summary>
-    Task<DAResult> GetDataTable<T>(FilterTable filterTable);
+    Task<ApiResult> GetDataTable<T>(FilterTable filterTable);
 }

@@ -42,11 +42,6 @@ public class UserEntity
     public string phone { get; set; }
 
     /// <summary>
-    ///     Đường dẫn ảnh đại diện
-    ///     <summary>
-    public string avatar { get; set; }
-
-    /// <summary>
     ///     Quyển người dùng (Người mua hàng, Quản trị hệ thống)
     ///     <summary>
     public Role role { get; set; }
@@ -55,11 +50,6 @@ public class UserEntity
     ///     Có bị chặn hoạt động hay không
     ///     <summary>
     public bool is_block { get; set; }
-
-    /// <summary>
-    ///     Định danh giỏ hàng
-    ///     <summary>
-    public Guid cart_id { get; set; }
 
     /// <summary>
     ///     Giới tính

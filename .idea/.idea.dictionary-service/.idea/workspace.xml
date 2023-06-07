@@ -46,6 +46,7 @@
       "mariadb"
     ],
     "RunConfigurationTargetLRU": [
+      "c52ef015-b6fc-4e6b-b8bc-3f8daa19a952",
       "c52ef015-b6fc-4e6b-b8bc-3f8daa19a952/schema/\"dictionary\""
     ],
     "rider.external.source.directories": [
@@ -56,8 +57,8 @@
   }
 }]]></component>
   <component name="RunManager" selected=".NET Launch Settings Profile.Dictionary.Api: DATN.Web.Api">
-    <configuration name="backup_develop.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
-      <script-file value="$PROJECT_DIR$/Dictionary.Repo/files/backup_develop.sql" />
+    <configuration name="pvo_v1_2023 20230418 2346.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
+      <script-file value="$PROJECT_DIR$/Dictionary.Repo/files/pvo_v1_2023 20230418 2346.sql" />
       <script-mode>FILE</script-mode>
       <data-source id="c52ef015-b6fc-4e6b-b8bc-3f8daa19a952" namespace="schema/&quot;dictionary&quot;" />
       <method v="2" />
@@ -79,11 +80,11 @@
     </configuration>
     <list>
       <item itemvalue=".NET Launch Settings Profile.Dictionary.Api: DATN.Web.Api" />
-      <item itemvalue="Database Script.backup_develop.sql" />
+      <item itemvalue="Database Script.pvo_v1_2023 20230418 2346.sql" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Database Script.backup_develop.sql" />
+        <item itemvalue="Database Script.pvo_v1_2023 20230418 2346.sql" />
       </list>
     </recent_temporary>
   </component>
@@ -100,7 +101,7 @@
       <workItem from="1685501838073" duration="632000" />
       <workItem from="1686058532539" duration="184000" />
       <workItem from="1686102367616" duration="1553000" />
-      <workItem from="1686104577289" duration="2313000" />
+      <workItem from="1686104577289" duration="3429000" />
     </task>
     <servers />
   </component>
@@ -130,32 +131,6 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Dictionary.Service/Service/UserService.cs</url>
-          <line>112</line>
-          <properties documentPath="$PROJECT_DIR$/Dictionary.Service/Service/UserService.cs" initialLine="112" containingFunctionPresentation="Method 'Signup'">
-            <startOffsets>
-              <option value="3843" />
-            </startOffsets>
-            <endOffsets>
-              <option value="3909" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Dictionary.Service/Service/UserService.cs</url>
-          <line>120</line>
-          <properties documentPath="$PROJECT_DIR$/Dictionary.Service/Service/UserService.cs" initialLine="120" containingFunctionPresentation="Method 'Signup'">
-            <startOffsets>
-              <option value="4279" />
-            </startOffsets>
-            <endOffsets>
-              <option value="4381" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

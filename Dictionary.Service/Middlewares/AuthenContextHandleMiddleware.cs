@@ -65,7 +65,7 @@ public class AuthenContextHandleMiddleware
             // Đăng nhập thất bại
             context.Response.StatusCode = 200;
             context.Response.ContentType = "application/json";
-            var result = new DAResult(401, "Không thể truy cập", "", null);
+            var result = new ApiResult(401, "Không thể truy cập", "", null);
             var jsonResult = JsonConvert.SerializeObject(result);
             var content = Encoding.UTF8.GetBytes(jsonResult);
             await context.Response.Body.WriteAsync(content, 0, content.Length);
@@ -98,7 +98,6 @@ public class AuthenContextHandleMiddleware
 
                 var contextData = new ContextData();
                 contextData.UserId = Guid.Parse(payload[TokenKeys.UserId].ToString());
-                contextData.CartId = Guid.Parse(payload[TokenKeys.CartId].ToString());
                 contextData.Email = payload[TokenKeys.Email].ToString();
                 contextData.FirstName = payload[TokenKeys.FirstName].ToString();
                 contextData.LastName = payload[TokenKeys.LastName].ToString();

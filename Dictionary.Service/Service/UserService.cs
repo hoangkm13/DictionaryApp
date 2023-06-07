@@ -42,8 +42,6 @@ public class UserService : BaseService, IUserService
             context.Email = user.email;
             context.FirstName = user.first_name;
             context.LastName = user.last_name;
-            context.Avatar = user.avatar;
-            context.CartId = user.cart_id;
             context.Role = user.role;
         }
 
@@ -92,7 +90,6 @@ public class UserService : BaseService, IUserService
         res.last_name = updateUser.last_name;
         res.email = updateUser.email;
         res.phone = updateUser.phone;
-        res.avatar = Common.SaveImage(_httpContextAccessor.HttpContext.Request.Host.Value, updateUser.avatar);
         res.gender = updateUser.gender;
         res.date_of_birth = updateUser.date_of_birth;
 
@@ -103,11 +100,10 @@ public class UserService : BaseService, IUserService
         return data;
     }
 
-    public async Task<DAResult> Signup(SignupModel model)
+    public async Task<ApiResult> Signup(SignupModel model)
     {
         var newUser = new UserEntity();
         newUser.user_id = Guid.NewGuid();
-        newUser.cart_id = Guid.NewGuid();
         newUser.email = model.email;
         newUser.phone = model.phone;
         newUser.password = BCrypt.Net.BCrypt.HashPassword(model.password);
@@ -120,11 +116,11 @@ public class UserService : BaseService, IUserService
         // Check tồn tại Email
         var existUserEmail = (await _userRepo.GetAsync<UserEntity>("email", newUser.email))?.FirstOrDefault();
         if (existUserEmail != null)
-            return new DAResult(int.Parse(ResultCode.ExistEmail), Resources.msgExistEmail, "", newUser);
+            return new ApiResult(int.Parse(ResultCode.ExistEmail), Resources.msgExistEmail, "", newUser);
         // Check tồn tại Số điện thoại
         var existUserPhone = (await _userRepo.GetAsync<UserEntity>("phone", newUser.phone))?.FirstOrDefault();
         if (existUserPhone != null)
-            return new DAResult(int.Parse(ResultCode.ExistPhone), Resources.msgExistPhone, "", newUser);
+            return new ApiResult(int.Parse(ResultCode.ExistPhone), Resources.msgExistPhone, "", newUser);
         var user = await _userRepo.InsertAsync<UserEntity>(newUser);
         
         var context = new ContextData();
@@ -134,8 +130,6 @@ public class UserService : BaseService, IUserService
             context.Email = user.email;
             context.FirstName = user.first_name;
             context.LastName = user.last_name;
-            context.Avatar = user.avatar;
-            context.CartId = user.cart_id;
             context.Role = user.role;
         }
 
@@ -144,7 +138,7 @@ public class UserService : BaseService, IUserService
                 .GetConnectionString("JwtTokenConfig"));
 
         var data = await GetContextReturn(context, jwtTokenConfig);
-        return new DAResult(200, Resources.signupSuccess, "", data);
+        return new ApiResult(200, Resources.signupSuccess, "", data);
     }
 
     public async Task<Dictionary<string, object>> GetToken(Guid userId)
@@ -157,8 +151,6 @@ public class UserService : BaseService, IUserService
             context.Email = user.email;
             context.FirstName = user.first_name;
             context.LastName = user.last_name;
-            context.Avatar = user.avatar;
-            context.CartId = user.cart_id;
             context.Role = user.role;
         }
 
@@ -202,9 +194,6 @@ public class UserService : BaseService, IUserService
                     context.Email,
                     context.FirstName,
                     context.LastName,
-                    Avatar = Common.GetUrlImage(_httpContextAccessor.HttpContext.Request.Host.ToString(),
-                        context.Avatar),
-                    context.CartId,
                     context.TokenExpired,
                     context.Role
                 }
@@ -223,7 +212,6 @@ public class UserService : BaseService, IUserService
         claimIdentity.AddClaim(new Claim(TokenKeys.Email, context.Email));
         claimIdentity.AddClaim(new Claim(TokenKeys.FirstName, context.FirstName));
         claimIdentity.AddClaim(new Claim(TokenKeys.LastName, context.LastName));
-        claimIdentity.AddClaim(new Claim(TokenKeys.CartId, context.CartId.ToString()));
 
         var expire = DateTime.Now.AddSeconds(jwtTokenConfig.ExpiredSeconds);
         context.TokenExpired = expire;

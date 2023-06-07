@@ -37,7 +37,7 @@ public class BaseService : IBaseService
         return await _baseRepo.GetComboboxPaging(typeof(T), columns, filter, sort);
     }
 
-    public async Task<DAResult> GetDataTable<T>(FilterTable filterTable)
+    public async Task<ApiResult> GetDataTable<T>(FilterTable filterTable)
     {
         return await _baseRepo.GetDataTable<T>(filterTable);
     }

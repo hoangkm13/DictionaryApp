@@ -3,13 +3,13 @@
 /// <summary>
 ///     Thông tin kết quả trả về cho client
 /// </summary>
-public class DAResult
+public class ApiResult
 {
     //public string TotalAmount { get; set; }
     //public string PurchaseAmount { get; set; }
     //public string ProfitAmount { get; set; }
 
-    public DAResult(int statusCode, string userMessage, string devMessage, dynamic data)
+    public ApiResult(int statusCode, string userMessage, string devMessage, dynamic data)
     {
         StatusCode = statusCode;
         UserMessage = userMessage;
@@ -17,7 +17,7 @@ public class DAResult
         Data = data;
     }
 
-    public DAResult(int statusCode, string userMessage, string devMessage, dynamic data, int totalRecord)
+    public ApiResult(int statusCode, string userMessage, string devMessage, dynamic data, int totalRecord)
     {
         StatusCode = statusCode;
         UserMessage = userMessage;

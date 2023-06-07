@@ -25,12 +25,6 @@ public class UpdateUser
     public string phone { get; set; }
 
     /// <summary>
-    ///     Đường dẫn ảnh đại diện
-    ///     <summary>
-    public string avatar { get; set; }
-
-
-    /// <summary>
     ///     Giới tính
     /// </summary>
     public int? gender { get; set; }

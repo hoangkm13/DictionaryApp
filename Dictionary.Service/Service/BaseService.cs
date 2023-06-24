@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Threading.Tasks;
 using Dictionary.Service.Constants;
-using Dictionary.Service.DtoEdit;
+using Dictionary.Service.DtoEdit.Authentication;
 using Dictionary.Service.Interfaces.Repo;
 using Dictionary.Service.Interfaces.Service;
 using Dictionary.Service.Model;

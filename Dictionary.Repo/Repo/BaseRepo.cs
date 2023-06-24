@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using Dapper;
 using Dictionary.Repo.Mysql;
 using Dictionary.Service.Attributes;
-using Dictionary.Service.DtoEdit;
+using Dictionary.Service.DtoEdit.Authentication;
 using Dictionary.Service.Interfaces.Repo;
 using Dictionary.Service.Model;
 using Dictionary.Service.Properties;

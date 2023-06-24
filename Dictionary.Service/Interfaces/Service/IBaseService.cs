@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Threading.Tasks;
-using Dictionary.Service.DtoEdit;
+using Dictionary.Service.DtoEdit.Authentication;
 using Dictionary.Service.Model;
 
 namespace Dictionary.Service.Interfaces.Service;

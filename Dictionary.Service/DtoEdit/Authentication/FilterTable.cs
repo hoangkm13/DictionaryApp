@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Dictionary.Service.DtoEdit;
+namespace Dictionary.Service.DtoEdit.Authentication;
 
 public class FilterTable
 {

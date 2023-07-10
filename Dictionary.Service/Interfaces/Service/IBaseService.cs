@@ -36,7 +36,7 @@ public interface IBaseService
     /// <summary>
     ///     Lấy dữ liệu bảng
     /// </summary>
-    Task<ApiResult> GetDataTable<T>(FilterTable filterTable);
+    Task<ServiceResult> GetDataTable<T>(FilterTable filterTable);
 
     /// <summary>
     ///     Lưu dữ liệu

@@ -66,7 +66,7 @@ public class UserRepo : BaseRepo, IUserRepo
         return result.FirstOrDefault();
     }
 
-    public override async Task<ApiResult> GetDataTable<T>(FilterTable filterTable)
+    public override async Task<ServiceResult> GetDataTable<T>(FilterTable filterTable)
     {
         var table = GetTableName(typeof(UserEntity));
         var columnSql = ParseColumn(string.Join(",", filterTable.fields));
@@ -124,6 +124,6 @@ public class UserRepo : BaseRepo, IUserRepo
             Provider.CloseConnection(cnn);
         }
 
-        return new ApiResult(200, Resources.getDataSuccess, "", result, totalRecord);
+        return new ServiceResult(200, Resources.getDataSuccess, "", result, totalRecord);
     }
 }

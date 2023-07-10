@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Dictionary.Service.Constants;
 using Dictionary.Service.Contexts;
 using Dictionary.Service.DtoEdit.Authentication;
 using Dictionary.Service.Exceptions;
@@ -65,18 +66,18 @@ public class BaseController<T> : ControllerBase where T : class
             var res = await _baseRepo.GetAsync<T>();
             if (res?.Count > 0)
             {
-                var actionResult = new ServiceResult(1, Resources.getDataSuccess, "", res, 200);
+                var actionResult = new ServiceResult((int)ApiStatus.Success, Resources.getDataSuccess, "", res, 200);
                 return Ok(actionResult);
             }
             else
             {
-                var actionResult = new ServiceResult(2, Resources.noReturnData, "", new List<T>(), 204);
+                var actionResult = new ServiceResult((int)ApiStatus.Fail, Resources.noReturnData, "", new List<T>(), 204);
                 return Ok(actionResult);
             }
         }
         catch (Exception exception)
         {
-            var actionResult = new ServiceResult(500, Resources.error, exception.Message, null, 500);
+            var actionResult = new ServiceResult((int)ApiStatus.Exception, Resources.error, exception.Message, null, 500);
             return Ok(actionResult);
         }
     }
@@ -93,18 +94,18 @@ public class BaseController<T> : ControllerBase where T : class
             var res = await _baseRepo.GetByIdAsync<T>(id);
             if (res != null)
             {
-                var actionResult = new ServiceResult(1, Resources.getDataSuccess, "", res, 200);
+                var actionResult = new ServiceResult((int)ApiStatus.Success, Resources.getDataSuccess, "", res, 200);
                 return Ok(actionResult);
             }
             else
             {
-                var actionResult = new ServiceResult(-1, Resources.noReturnData, "", null, 204);
+                var actionResult = new ServiceResult((int)ApiStatus.Fail, Resources.noReturnData, "", null, 204);
                 return Ok(actionResult);
             }
         }
         catch (Exception exception)
         {
-            var actionResult = new ServiceResult(500, Resources.error, exception.Message, null, 500);
+            var actionResult = new ServiceResult((int)ApiStatus.Exception, Resources.error, exception.Message, null, 500);
             return Ok(actionResult);
         }
     }
@@ -121,23 +122,23 @@ public class BaseController<T> : ControllerBase where T : class
             var row = await _baseService.InsertAsync<T>(t);
             if (row != null)
             {
-                var actionResult = new ServiceResult(1, Resources.getDataSuccess, "", row, 200);
+                var actionResult = new ServiceResult((int)ApiStatus.Success, Resources.getDataSuccess, "", row, 200);
                 return Ok(actionResult);
             }
             else
             {
-                var actionResult = new ServiceResult(-1, Resources.noReturnData, "", null, 204);
+                var actionResult = new ServiceResult((int)ApiStatus.Fail, Resources.noReturnData, "", null, 204);
                 return Ok(actionResult);
             }
         }
         catch (ValidateException exception)
         {
-            var actionResult = new ServiceResult(-1, exception.Message, "", exception.DataErr, 400);
+            var actionResult = new ServiceResult((int)ApiStatus.Exception, exception.Message, "", exception.DataErr, 400);
             return Ok(actionResult);
         }
         catch (Exception exception)
         {
-            var actionResult = new ServiceResult(500, Resources.error, exception.Message, null, 500);
+            var actionResult = new ServiceResult((int)ApiStatus.Exception, Resources.error, exception.Message, null, 500);
             return Ok(actionResult);
         }
     }
@@ -154,23 +155,23 @@ public class BaseController<T> : ControllerBase where T : class
             var row = await _baseService.UpdateAsync<T>(t);
             if (row != null)
             {
-                var actionResult = new ServiceResult(1, Resources.editDataSuccess, "", row, 200);
+                var actionResult = new ServiceResult((int)ApiStatus.Success, Resources.editDataSuccess, "", row, 200);
                 return Ok(actionResult);
             }
             else
             {
-                var actionResult = new ServiceResult(2, Resources.editDataFail, "", null, 204);
+                var actionResult = new ServiceResult((int)ApiStatus.Fail, Resources.editDataFail, "", null, 204);
                 return Ok(actionResult);
             }
         }
         catch (ValidateException exception)
         {
-            var actionResult = new ServiceResult(-1, exception.Message, "", 0, 400);
+            var actionResult = new ServiceResult((int)ApiStatus.Exception, exception.Message, "", 0, 400);
             return Ok(actionResult);
         }
         catch (Exception exception)
         {
-            var actionResult = new ServiceResult(-1, Resources.error, exception.Message, null, 500);
+            var actionResult = new ServiceResult((int)ApiStatus.Exception, Resources.error, exception.Message, null, 500);
             return Ok(actionResult);
         }
     }
@@ -187,23 +188,23 @@ public class BaseController<T> : ControllerBase where T : class
             var result = await _baseService.DeleteAsync(t);
             if (result)
             {
-                var actionResult = new ServiceResult(1, Resources.deleteDataSuccess, "", result, 200);
+                var actionResult = new ServiceResult((int)ApiStatus.Success, Resources.deleteDataSuccess, "", result, 200);
                 return Ok(actionResult);
             }
             else
             {
-                var actionResult = new ServiceResult(2, Resources.deleteDataFail, "", false, 204);
+                var actionResult = new ServiceResult((int)ApiStatus.Fail, Resources.deleteDataFail, "", false, 204);
                 return Ok(actionResult);
             }
         }
         catch (ValidateException exception)
         {
-            var actionResult = new ServiceResult(-1, exception.Message, "", 0, 400);
+            var actionResult = new ServiceResult((int)ApiStatus.Exception, exception.Message, "", 0, 400);
             return Ok(actionResult);
         }
         catch (Exception exception)
         {
-            var actionResult = new ServiceResult(-1, Resources.error, exception.Message, null, 500);
+            var actionResult = new ServiceResult((int)ApiStatus.Exception, Resources.error, exception.Message, null, 500);
             return Ok(actionResult);
         }
     }
@@ -222,7 +223,7 @@ public class BaseController<T> : ControllerBase where T : class
         }
         catch (Exception exception)
         {
-            var actionResult = new ServiceResult(-1, Resources.error, exception.Message, null, 500);
+            var actionResult = new ServiceResult((int)ApiStatus.Exception, Resources.error, exception.Message, null, 500);
             return Ok(actionResult);
         }
     }
@@ -236,11 +237,11 @@ public class BaseController<T> : ControllerBase where T : class
         try
         {
             var result = await _baseService.SaveData(model, mode);
-            return Ok(new ServiceResult(1, Resources.addDataSuccess, "", result, 200));
+            return Ok(new ServiceResult((int)ApiStatus.Success, Resources.addDataSuccess, "", result, 200));
         }
         catch (Exception exception)
         {
-            var actionResult = new ServiceResult(-1, Resources.error, exception.Message, null, 500);
+            var actionResult = new ServiceResult((int)ApiStatus.Exception, Resources.error, exception.Message, null, 500);
             return Ok(actionResult);
         }
     }

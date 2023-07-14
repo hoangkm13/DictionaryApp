@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Dictionary.Service.Constants;
 using Dictionary.Service.Contexts;
-using Dictionary.Service.DtoEdit;
+using Dictionary.Service.DtoEdit.Authentication;
 using Dictionary.Service.Exceptions;
 using Dictionary.Service.Interfaces.Repo;
 using Dictionary.Service.Interfaces.Service;
@@ -100,7 +100,7 @@ public class UserService : BaseService, IUserService
         return data;
     }
 
-    public async Task<ApiResult> Signup(SignupModel model)
+    public async Task<ServiceResult> Signup(SignupModel model)
     {
         var newUser = new UserEntity();
         newUser.user_id = Guid.NewGuid();
@@ -115,12 +115,12 @@ public class UserService : BaseService, IUserService
         newUser.gender = model.gender;
         // Check tồn tại Email
         var existUserEmail = (await _userRepo.GetAsync<UserEntity>("email", newUser.email))?.FirstOrDefault();
-        if (existUserEmail != null)
-            return new ApiResult(int.Parse(ResultCode.ExistEmail), Resources.msgExistEmail, "", newUser);
+        // if (existUserEmail != null)
+            // return new ServiceResult(int.Parse(ResultCode.ExistEmail), Resources.msgExistEmail, "", newUser);
         // Check tồn tại Số điện thoại
         var existUserPhone = (await _userRepo.GetAsync<UserEntity>("phone", newUser.phone))?.FirstOrDefault();
         if (existUserPhone != null)
-            return new ApiResult(int.Parse(ResultCode.ExistPhone), Resources.msgExistPhone, "", newUser);
+            return new ServiceResult(-1, Resources.msgExistPhone, null, newUser, int.Parse(ResultCode.ExistPhone));
         var user = await _userRepo.InsertAsync<UserEntity>(newUser);
         
         var context = new ContextData();
@@ -138,7 +138,8 @@ public class UserService : BaseService, IUserService
                 .GetConnectionString("JwtTokenConfig"));
 
         var data = await GetContextReturn(context, jwtTokenConfig);
-        return new ApiResult(200, Resources.signupSuccess, "", data);
+        // return new ServiceResult(200, Resources.signupSuccess, "", data);
+        return null;
     }
 
     public async Task<Dictionary<string, object>> GetToken(Guid userId)

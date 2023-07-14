@@ -65,7 +65,7 @@ public class AuthenContextHandleMiddleware
             // Đăng nhập thất bại
             context.Response.StatusCode = 200;
             context.Response.ContentType = "application/json";
-            var result = new ApiResult(401, "Không thể truy cập", "", null);
+            var result = new ServiceResult(-1, "Không thể truy cập", "", "", 401);
             var jsonResult = JsonConvert.SerializeObject(result);
             var content = Encoding.UTF8.GetBytes(jsonResult);
             await context.Response.Body.WriteAsync(content, 0, content.Length);
@@ -122,16 +122,10 @@ public class AuthenContextHandleMiddleware
     {
         var lstPath = new List<string>
         {
-            "/api/Products/info",
             "/api/Users/login",
             "/api/Users/signup",
-            "/api/Products/homepage",
-            "/api/Categorys/getCategory",
-            "/api/Products/relation",
-            "/api/Products/rateOption",
-            "/api/Products/commentProduct",
-            "/Upload/",
-            "/listProductCompare/"
+            //test
+            "/api/Dictionaries",
         };
         if (lstPath.Any(x => path.Contains(x))) return true;
         return false;

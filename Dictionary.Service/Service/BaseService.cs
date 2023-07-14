@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Threading.Tasks;
 using Dictionary.Service.Constants;
-using Dictionary.Service.DtoEdit;
+using Dictionary.Service.DtoEdit.Authentication;
 using Dictionary.Service.Interfaces.Repo;
 using Dictionary.Service.Interfaces.Service;
 using Dictionary.Service.Model;
@@ -37,7 +37,7 @@ public class BaseService : IBaseService
         return await _baseRepo.GetComboboxPaging(typeof(T), columns, filter, sort);
     }
 
-    public async Task<ApiResult> GetDataTable<T>(FilterTable filterTable)
+    public async Task<ServiceResult> GetDataTable<T>(FilterTable filterTable)
     {
         return await _baseRepo.GetDataTable<T>(filterTable);
     }

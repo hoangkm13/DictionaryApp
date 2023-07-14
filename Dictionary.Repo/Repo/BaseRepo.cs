@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using Dapper;
 using Dictionary.Repo.Mysql;
 using Dictionary.Service.Attributes;
-using Dictionary.Service.DtoEdit;
+using Dictionary.Service.DtoEdit.Authentication;
 using Dictionary.Service.Interfaces.Repo;
 using Dictionary.Service.Model;
 using Dictionary.Service.Properties;
@@ -547,7 +547,7 @@ public class BaseRepo : IBaseRepo
         return value;
     }
 
-    public virtual async Task<ApiResult> GetDataTable<T>(FilterTable filterTable)
+    public virtual async Task<ServiceResult> GetDataTable<T>(FilterTable filterTable)
     {
         var table = GetTableName(typeof(T));
         var columnSql = ParseColumn(string.Join(",", filterTable.fields));
@@ -594,7 +594,7 @@ public class BaseRepo : IBaseRepo
             Provider.CloseConnection(cnn);
         }
 
-        return new ApiResult(200, Resources.getDataSuccess, "", result, totalRecord);
+        return new ServiceResult(200, Resources.getDataSuccess, "", result, totalRecord);
     }
 
     #endregion

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Dictionary.Service.DtoEdit;
+using Dictionary.Service.DtoEdit.Authentication;
 using Dictionary.Service.Model;
 
 namespace Dictionary.Service.Interfaces.Service;
@@ -21,7 +21,7 @@ public interface IUserService : IBaseService
     ///     Đăng ký
     /// </summary>
     /// <param name="model"></param>
-    Task<ApiResult> Signup(SignupModel model);
+    Task<ServiceResult> Signup(SignupModel model);
 
     /// <summary>
     ///     Reset Password

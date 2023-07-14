@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Threading.Tasks;
-using Dictionary.Service.DtoEdit;
+using Dictionary.Service.DtoEdit.Authentication;
 using Dictionary.Service.Model;
 
 namespace Dictionary.Service.Interfaces.Service;
@@ -36,7 +36,7 @@ public interface IBaseService
     /// <summary>
     ///     Lấy dữ liệu bảng
     /// </summary>
-    Task<ApiResult> GetDataTable<T>(FilterTable filterTable);
+    Task<ServiceResult> GetDataTable<T>(FilterTable filterTable);
 
     /// <summary>
     ///     Lưu dữ liệu

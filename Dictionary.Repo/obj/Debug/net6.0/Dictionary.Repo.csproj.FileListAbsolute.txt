@@ -28,3 +28,18 @@
 /home/hoangkm/RiderProjects/Dictionary.App/Dictionary.Repo/obj/Debug/net6.0/Dictionary.Repo.dll
 /home/hoangkm/RiderProjects/Dictionary.App/Dictionary.Repo/obj/Debug/net6.0/ref/Dictionary.Repo.dll
 /home/hoangkm/RiderProjects/Dictionary.App/Dictionary.Repo/obj/Debug/net6.0/Dictionary.Repo.pdb
+/Users/zyyx/Documents/Project Study/DictionaryApp/Dictionary.Repo/bin/Debug/net6.0/Dictionary.Repo.deps.json
+/Users/zyyx/Documents/Project Study/DictionaryApp/Dictionary.Repo/bin/Debug/net6.0/Dictionary.Repo.dll
+/Users/zyyx/Documents/Project Study/DictionaryApp/Dictionary.Repo/bin/Debug/net6.0/Dictionary.Repo.pdb
+/Users/zyyx/Documents/Project Study/DictionaryApp/Dictionary.Repo/bin/Debug/net6.0/Dictionary.Service.dll
+/Users/zyyx/Documents/Project Study/DictionaryApp/Dictionary.Repo/bin/Debug/net6.0/Dictionary.Service.pdb
+/Users/zyyx/Documents/Project Study/DictionaryApp/Dictionary.Repo/obj/Debug/net6.0/Dictionary.Repo.csproj.AssemblyReference.cache
+/Users/zyyx/Documents/Project Study/DictionaryApp/Dictionary.Repo/obj/Debug/net6.0/Dictionary.Repo.GeneratedMSBuildEditorConfig.editorconfig
+/Users/zyyx/Documents/Project Study/DictionaryApp/Dictionary.Repo/obj/Debug/net6.0/Dictionary.Repo.AssemblyInfoInputs.cache
+/Users/zyyx/Documents/Project Study/DictionaryApp/Dictionary.Repo/obj/Debug/net6.0/Dictionary.Repo.AssemblyInfo.cs
+/Users/zyyx/Documents/Project Study/DictionaryApp/Dictionary.Repo/obj/Debug/net6.0/Dictionary.Repo.csproj.CoreCompileInputs.cache
+/Users/zyyx/Documents/Project Study/DictionaryApp/Dictionary.Repo/obj/Debug/net6.0/Dictionary.Repo.csproj.CopyComplete
+/Users/zyyx/Documents/Project Study/DictionaryApp/Dictionary.Repo/obj/Debug/net6.0/Dictionary.Repo.dll
+/Users/zyyx/Documents/Project Study/DictionaryApp/Dictionary.Repo/obj/Debug/net6.0/refint/Dictionary.Repo.dll
+/Users/zyyx/Documents/Project Study/DictionaryApp/Dictionary.Repo/obj/Debug/net6.0/Dictionary.Repo.pdb
+/Users/zyyx/Documents/Project Study/DictionaryApp/Dictionary.Repo/obj/Debug/net6.0/ref/Dictionary.Repo.dll

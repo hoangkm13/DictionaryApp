@@ -13,4 +13,8 @@
         <ProjectReference Include="..\Dictionary.Repo\Dictionary.Repo.csproj" />
         <ProjectReference Include="..\Dictionary.Service\Dictionary.Service.csproj" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="wwwroot\" />
+    </ItemGroup>
 </Project>

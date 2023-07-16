@@ -993,19 +993,19 @@
     ]
   },
   "packageFolders": {
-    "/home/hoangkm/.nuget/packages/": {}
+    "/Users/zyyx/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/hoangkm/RiderProjects/Dictionary.App/Dictionary.Service/Dictionary.Service.csproj",
+      "projectUniqueName": "/Users/zyyx/Documents/Project Study/DictionaryApp/Dictionary.Service/Dictionary.Service.csproj",
       "projectName": "Dictionary.Service",
-      "projectPath": "/home/hoangkm/RiderProjects/Dictionary.App/Dictionary.Service/Dictionary.Service.csproj",
-      "packagesPath": "/home/hoangkm/.nuget/packages/",
-      "outputPath": "/home/hoangkm/RiderProjects/Dictionary.App/Dictionary.Service/obj/",
+      "projectPath": "/Users/zyyx/Documents/Project Study/DictionaryApp/Dictionary.Service/Dictionary.Service.csproj",
+      "packagesPath": "/Users/zyyx/.nuget/packages/",
+      "outputPath": "/Users/zyyx/Documents/Project Study/DictionaryApp/Dictionary.Service/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/hoangkm/.nuget/NuGet/NuGet.Config"
+        "/Users/zyyx/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -1060,7 +1060,8 @@
           "net47",
           "net471",
           "net472",
-          "net48"
+          "net48",
+          "net481"
         ],
         "assetTargetFallback": true,
         "warn": true,
@@ -1069,7 +1070,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/6.0.118/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.410/RuntimeIdentifierGraph.json"
       }
     }
   }

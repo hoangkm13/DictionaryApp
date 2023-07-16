@@ -28,3 +28,18 @@
 /home/hoangkm/RiderProjects/Dictionary.App/Dictionary.Service/obj/Debug/net6.0/Dictionary.Service.dll
 /home/hoangkm/RiderProjects/Dictionary.App/Dictionary.Service/obj/Debug/net6.0/ref/Dictionary.Service.dll
 /home/hoangkm/RiderProjects/Dictionary.App/Dictionary.Service/obj/Debug/net6.0/Dictionary.Service.pdb
+/Users/zyyx/Documents/Project Study/DictionaryApp/Dictionary.Service/bin/Debug/net6.0/Dictionary.Service.deps.json
+/Users/zyyx/Documents/Project Study/DictionaryApp/Dictionary.Service/bin/Debug/net6.0/Dictionary.Service.dll
+/Users/zyyx/Documents/Project Study/DictionaryApp/Dictionary.Service/bin/Debug/net6.0/Dictionary.Service.pdb
+/Users/zyyx/Documents/Project Study/DictionaryApp/Dictionary.Service/obj/Debug/net6.0/Dictionary.Service.csproj.AssemblyReference.cache
+/Users/zyyx/Documents/Project Study/DictionaryApp/Dictionary.Service/obj/Debug/net6.0/Dictionary.Service.Properties.Resources.resources
+/Users/zyyx/Documents/Project Study/DictionaryApp/Dictionary.Service/obj/Debug/net6.0/Dictionary.Service.Properties.ResultCode.resources
+/Users/zyyx/Documents/Project Study/DictionaryApp/Dictionary.Service/obj/Debug/net6.0/Dictionary.Service.csproj.GenerateResource.cache
+/Users/zyyx/Documents/Project Study/DictionaryApp/Dictionary.Service/obj/Debug/net6.0/Dictionary.Service.GeneratedMSBuildEditorConfig.editorconfig
+/Users/zyyx/Documents/Project Study/DictionaryApp/Dictionary.Service/obj/Debug/net6.0/Dictionary.Service.AssemblyInfoInputs.cache
+/Users/zyyx/Documents/Project Study/DictionaryApp/Dictionary.Service/obj/Debug/net6.0/Dictionary.Service.AssemblyInfo.cs
+/Users/zyyx/Documents/Project Study/DictionaryApp/Dictionary.Service/obj/Debug/net6.0/Dictionary.Service.csproj.CoreCompileInputs.cache
+/Users/zyyx/Documents/Project Study/DictionaryApp/Dictionary.Service/obj/Debug/net6.0/Dictionary.Service.dll
+/Users/zyyx/Documents/Project Study/DictionaryApp/Dictionary.Service/obj/Debug/net6.0/refint/Dictionary.Service.dll
+/Users/zyyx/Documents/Project Study/DictionaryApp/Dictionary.Service/obj/Debug/net6.0/Dictionary.Service.pdb
+/Users/zyyx/Documents/Project Study/DictionaryApp/Dictionary.Service/obj/Debug/net6.0/ref/Dictionary.Service.dll

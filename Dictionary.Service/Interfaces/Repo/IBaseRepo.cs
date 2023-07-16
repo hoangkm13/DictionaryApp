@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Dictionary.Service.DtoEdit;
+using Dictionary.Service.DtoEdit.Authentication;
 using Dictionary.Service.Model;
 using Microsoft.Extensions.Configuration;
 
@@ -62,5 +62,5 @@ public interface IBaseRepo
     /// <summary>
     ///     Lấy dữ liệu bảng
     /// </summary>
-    Task<ApiResult> GetDataTable<T>(FilterTable filterTable);
+    Task<ServiceResult> GetDataTable<T>(FilterTable filterTable);
 }

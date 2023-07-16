@@ -1,4 +1,4 @@
-﻿namespace Dictionary.Service.DtoEdit;
+﻿namespace Dictionary.Service.DtoEdit.Authentication;
 
 /// <summary>
 ///     Cấu hình Token Authen để gọi API

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Dictionary.Service.Constants;
+using Dictionary.Service.Contexts;
 using Dictionary.Service.DtoEdit.Authentication;
 using Dictionary.Service.Exceptions;
 using Dictionary.Service.Interfaces.Repo;
@@ -12,20 +12,38 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Dictionary.Api.Controllers;
 
+/// <summary>
+///     Controller Người dùng
+/// </summary>
+/// CreatedBy: dqdat (20/07/2021)
 [Route("api/[controller]s")]
 public class UserController : BaseController<UserEntity>
 {
+    /// <summary>
+    ///     Repo Người dùng
+    /// </summary>
     private readonly IUserRepo _userRepo;
-    
+
+    /// <summary>
+    ///     Service Người dùng
+    /// </summary>
     private readonly IUserService _userService;
-    
+
+    /// <summary>
+    ///     Hàm khởi tạo
+    /// </summary>
+    /// <param name="UserService"></param>
+    /// <param name="UserRepo"></param>
     public UserController(IUserService userService, IUserRepo userRepo, IServiceProvider serviceProvider) : base(
         userService, userRepo, serviceProvider)
     {
         _userService = userService;
         _userRepo = userRepo;
     }
-    
+
+    /// <summary>
+    ///     Lấy Thông tin người dùng
+    /// </summary>
     [HttpGet("info")]
     public async Task<IActionResult> GetUserInfo()
     {
@@ -35,24 +53,25 @@ public class UserController : BaseController<UserEntity>
             var res = await _userRepo.GetUserInfo(contextData.UserId);
             if (res != null)
             {
-                var actionResult = new ServiceResult((int)ApiStatus.Success, Resources.getDataSuccess, "", res, 200);
+                var actionResult = new ApiResult(200, Resources.getDataSuccess, "", res);
                 return Ok(actionResult);
             }
             else
             {
-                var actionResult = new ServiceResult((int)ApiStatus.Fail, Resources.noReturnData, "",
-                    new List<UserEntity>(), 204);
+                var actionResult = new ApiResult(204, Resources.noReturnData, "", new List<UserEntity>());
                 return Ok(actionResult);
             }
         }
         catch (Exception exception)
         {
-            var actionResult =
-                new ServiceResult((int)ApiStatus.Exception, Resources.error, exception.Message, null, 500);
+            var actionResult = new ApiResult(500, Resources.error, exception.Message, new List<UserEntity>());
             return Ok(actionResult);
         }
     }
 
+    /// <summary>
+    ///     Lấy Thông tin người dùng
+    /// </summary>
     [HttpGet("getUser/{userId}")]
     public async Task<IActionResult> getUser(Guid userId)
     {
@@ -61,23 +80,25 @@ public class UserController : BaseController<UserEntity>
             var res = await _userRepo.GetUserInfo(userId);
             if (res != null)
             {
-                var actionResult = new ServiceResult((int)ApiStatus.Success, Resources.getDataSuccess, "", res, 200);
+                var actionResult = new ApiResult(200, Resources.getDataSuccess, "", res);
                 return Ok(actionResult);
             }
             else
             {
-                var actionResult = new ServiceResult((int)ApiStatus.Fail, Resources.noReturnData, "",
-                    new List<UserEntity>(), 204);
+                var actionResult = new ApiResult(204, Resources.noReturnData, "", new List<UserEntity>());
                 return Ok(actionResult);
             }
         }
         catch (Exception exception)
         {
-            var actionResult = new ServiceResult((int)ApiStatus.Exception, Resources.error, exception.Message, null, 500);
+            var actionResult = new ApiResult(500, Resources.error, exception.Message, new List<UserEntity>());
             return Ok(actionResult);
         }
     }
-    
+
+    /// <summary>
+    ///     Đăng nhập
+    /// </summary>
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginModel model)
     {
@@ -86,29 +107,32 @@ public class UserController : BaseController<UserEntity>
             var res = await _userService.Login(model);
             if (res != null)
             {
-                var actionResult = new ServiceResult((int)ApiStatus.Success, Resources.getDataSuccess, "", res, 200);
+                var actionResult = new ApiResult(200, Resources.getDataSuccess, "", res);
                 return Ok(actionResult);
             }
             else
             {
-                var actionResult = new ServiceResult((int)ApiStatus.Fail, Resources.noReturnData, "",
-                    new List<UserEntity>(), 204);
+                var actionResult = new ApiResult(204, Resources.noReturnData, "", null);
                 return Ok(actionResult);
             }
         }
         catch (ValidateException exception)
         {
-            var actionResult = new ServiceResult((int)ApiStatus.Exception, exception.Message, "", 0, 400);
+            var actionResult = new ApiResult(exception.resultCode, exception.Message, "", exception.DataErr);
             return Ok(actionResult);
         }
         catch (Exception exception)
         {
-            var actionResult = new ServiceResult((int)ApiStatus.Exception, Resources.error, exception.Message, null, 500);
+            //var actionResult = new DAResult(500, Resources.error, exception.Message, null);
+            var actionResult = new ApiResult(500, exception.StackTrace, exception.Message, null);
             Console.WriteLine(exception.StackTrace);
             return Ok(actionResult);
         }
     }
-    
+
+    /// <summary>
+    ///     Lấy token
+    /// </summary>
     [HttpGet("token")]
     public async Task<IActionResult> GetToken()
     {
@@ -118,23 +142,25 @@ public class UserController : BaseController<UserEntity>
             var res = await _userService.GetToken(contextData.UserId);
             if (res != null)
             {
-                var actionResult = new ServiceResult((int)ApiStatus.Success, Resources.getDataSuccess, "", res, 200);
+                var actionResult = new ApiResult(200, Resources.getDataSuccess, "", res);
                 return Ok(actionResult);
             }
             else
             {
-                var actionResult = new ServiceResult((int)ApiStatus.Fail, Resources.noReturnData, "",
-                    new List<UserEntity>(), 204);
+                var actionResult = new ApiResult(204, Resources.noReturnData, "", new List<UserEntity>());
                 return Ok(actionResult);
             }
         }
         catch (Exception exception)
         {
-            var actionResult = new ServiceResult((int)ApiStatus.Exception, Resources.error, exception.Message, null, 500);
+            var actionResult = new ApiResult(500, Resources.error, exception.Message, new List<UserEntity>());
             return Ok(actionResult);
         }
     }
 
+    /// <summary>
+    ///     Đăng nhập
+    /// </summary>
     [HttpPost("signup")]
     public async Task<IActionResult> Signup([FromBody] SignupModel model)
     {
@@ -145,11 +171,14 @@ public class UserController : BaseController<UserEntity>
         }
         catch (Exception exception)
         {
-            var actionResult = new ServiceResult((int)ApiStatus.Exception, Resources.error, exception.Message, null, 500);
+            var actionResult = new ApiResult(500, Resources.error, exception.Message, null);
             return Ok(actionResult);
         }
     }
-    
+
+    /// <summary>
+    ///     Reset Password
+    /// </summary>
     [HttpPut("resetPassword")]
     public async Task<IActionResult> ResetPassword([FromBody] ResetPassword resetPassword)
     {
@@ -159,22 +188,25 @@ public class UserController : BaseController<UserEntity>
             resetPassword.user_id = contextService.UserId;
             await _userService.ResetPassword(resetPassword);
 
-            var actionResult = new ServiceResult((int)ApiStatus.Success, "Cập nhật mật khẩu thành công!", "", null, 200);
-
+            var actionResult = new ApiResult(200, "Cập nhật mật khẩu thành công!", "", 1);
             return Ok(actionResult);
         }
         catch (ValidateException exception)
         {
-            var actionResult = new ServiceResult((int)ApiStatus.Exception, exception.Message, "", 0, 400);
+            var actionResult = new ApiResult(200, Resources.error, exception.Message, exception.DataErr);
             return Ok(actionResult);
         }
         catch (Exception exception)
         {
-            var actionResult = new ServiceResult((int)ApiStatus.Exception, Resources.error, exception.Message, null, 500);
+            var actionResult = new ApiResult(500, Resources.error, exception.Message, null);
             return Ok(actionResult);
         }
     }
-    
+
+
+    /// <summary>
+    ///     Reset Password
+    /// </summary>
     [HttpPut("update")]
     public async Task<IActionResult> updateUser([FromBody] UpdateUser userUpdate)
     {
@@ -185,24 +217,25 @@ public class UserController : BaseController<UserEntity>
             var res = await _userService.UpdateUser(userUpdate);
             if (res != null)
             {
-                var actionResult = new ServiceResult((int)ApiStatus.Success, "Cập nhật thông tin tài khoản thành công!", "", null, 200);
-
+                var actionResult = new ApiResult(200, "Cập nhật thông tin tài khoản thành công!", "", res);
                 return Ok(actionResult);
             }
             else
             {
-                var actionResult = new ServiceResult((int)ApiStatus.Fail, "Cập nhật thất bại!", "",
-                    null, 204);
+                var actionResult = new ApiResult(204, "Cập nhật thất bại!", "", null);
                 return Ok(actionResult);
             }
         }
         catch (Exception exception)
         {
-            var actionResult = new ServiceResult((int)ApiStatus.Exception, Resources.error, exception.Message, null, 500);
+            var actionResult = new ApiResult(500, Resources.error, exception.Message, null);
             return Ok(actionResult);
         }
     }
 
+    /// <summary>
+    ///     Cập nhật trạng thái Bị chặn/ Đang hoạt dộng
+    /// </summary>
     [HttpPut("updateStatus")]
     public async Task<IActionResult> UpdateStatus([FromBody] UpdateUser userUpdate)
     {
@@ -211,20 +244,18 @@ public class UserController : BaseController<UserEntity>
             var res = await _userService.UpdateStatus(userUpdate.is_block, userUpdate.user_id);
             if (res != null)
             {
-                var actionResult = new ServiceResult((int)ApiStatus.Success, "Cập nhật thông tin khách hàng thành công!", "", null, 200);
-
+                var actionResult = new ApiResult(200, "Cập nhật thông tin khách hàng thành công!", "", res);
                 return Ok(actionResult);
             }
             else
             {
-                var actionResult = new ServiceResult((int)ApiStatus.Fail, "Cập nhật thất bại!", "",
-                    null, 204);
+                var actionResult = new ApiResult(204, "Cập nhật thất bại!", "", null);
                 return Ok(actionResult);
             }
         }
         catch (Exception exception)
         {
-            var actionResult = new ServiceResult((int)ApiStatus.Exception, Resources.error, exception.Message, null, 500);
+            var actionResult = new ApiResult(500, Resources.error, exception.Message, null);
             return Ok(actionResult);
         }
     }

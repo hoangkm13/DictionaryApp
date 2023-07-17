@@ -24,26 +24,36 @@ public class UserService : BaseService, IUserService
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly IUserRepo _userRepo;
+    private readonly IDictionaryRepo _dictionaryRepo;
 
-    public UserService(IUserRepo userRepo,
+    public UserService(
+        IUserRepo userRepo,
+        IDictionaryRepo dictionaryRepo,
         IHttpContextAccessor httpContextAccessor) : base(userRepo)
     {
         _userRepo = userRepo;
         _httpContextAccessor = httpContextAccessor;
+        _dictionaryRepo = dictionaryRepo;
     }
 
     public async Task<Dictionary<string, object>> Login(LoginModel model)
     {
         var user = await _userRepo.Login(model);
-        // var dictionary = await;
         var context = new ContextData();
         if (user != null)
         {
+            var dictionary = await _dictionaryRepo.GetAsync<DictionaryEntity>("user_id", user.user_id);
+            
+            DictionaryEntity lastDictionary = dictionary
+                .MaxBy(r => r.last_view_at);
+            
             context.UserId = user.user_id;
             context.Email = user.email;
             context.DisplayName = user.display_name;
             context.Avatar = user.avatar;
             context.UserName = user.user_name;
+            context.DictionaryId = lastDictionary.dictionary_id;
+            context.DictionaryName = lastDictionary.dictionary_name;
         }
 
         var jwtTokenConfig =
@@ -170,7 +180,9 @@ public class UserService : BaseService, IUserService
             { "userId", context.UserId },
             { "username", context.UserName},
             { "displayName", context.DisplayName},
-            { "avatar", context.Avatar}
+            { "avatar", context.Avatar},
+            { "dictionaryId", context.DictionaryId},
+            { "dictionaryName", context.DictionaryName}
         };
         return result;
     }

@@ -21,4 +21,8 @@ public class ContextData
     
     public string Avatar { get; set; }
     public DateTime TokenExpired { get; set; }
+    
+    public Guid DictionaryId { get; set; }
+    
+    public string DictionaryName { get; set; }
 }

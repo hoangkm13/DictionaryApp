@@ -35,14 +35,15 @@ public class UserService : BaseService, IUserService
     public async Task<Dictionary<string, object>> Login(LoginModel model)
     {
         var user = await _userRepo.Login(model);
+        // var dictionary = await;
         var context = new ContextData();
         if (user != null)
         {
             context.UserId = user.user_id;
             context.Email = user.email;
-            context.FirstName = user.first_name;
-            context.LastName = user.last_name;
-            context.Role = user.role;
+            context.DisplayName = user.display_name;
+            context.Avatar = user.avatar;
+            context.UserName = user.user_name;
         }
 
         var jwtTokenConfig =
@@ -52,7 +53,7 @@ public class UserService : BaseService, IUserService
         var data = await GetContextReturn(context, jwtTokenConfig);
         return data;
     }
-
+      
     /// <summary>
     ///     Reset Password
     /// </summary>
@@ -85,13 +86,8 @@ public class UserService : BaseService, IUserService
         var res = existedUser.FirstOrDefault();
 
         if (res == null) throw new ValidateException("User doesn't exist", "");
-
-        res.first_name = updateUser.first_name;
-        res.last_name = updateUser.last_name;
         res.email = updateUser.email;
-        res.phone = updateUser.phone;
-        res.gender = updateUser.gender;
-        res.date_of_birth = updateUser.date_of_birth;
+        res.birthday = updateUser.date_of_birth;
 
         await _userRepo.UpdateAsync<UserEntity>(res);
 
@@ -105,22 +101,13 @@ public class UserService : BaseService, IUserService
         var newUser = new UserEntity();
         newUser.user_id = Guid.NewGuid();
         newUser.email = model.email;
-        newUser.phone = model.phone;
         newUser.password = BCrypt.Net.BCrypt.HashPassword(model.password);
-        newUser.first_name = model.first_name.Trim();
-        newUser.last_name = model.last_name.Trim();
         // newUser.avatar = Common.SaveImage(_httpContextAccessor.HttpContext.Request.Host.Value, model.avatar);
-        newUser.is_block = false;
-        newUser.role = Role.Customer;
-        newUser.gender = model.gender;
         // Check tồn tại Email
         var existUserEmail = (await _userRepo.GetAsync<UserEntity>("email", newUser.email))?.FirstOrDefault();
         // if (existUserEmail != null)
             // return new ServiceResult(int.Parse(ResultCode.ExistEmail), Resources.msgExistEmail, "", newUser);
         // Check tồn tại Số điện thoại
-        var existUserPhone = (await _userRepo.GetAsync<UserEntity>("phone", newUser.phone))?.FirstOrDefault();
-        if (existUserPhone != null)
-            return new ServiceResult(-1, Resources.msgExistPhone, null, newUser, int.Parse(ResultCode.ExistPhone));
         var user = await _userRepo.InsertAsync<UserEntity>(newUser);
         
         var context = new ContextData();
@@ -128,9 +115,6 @@ public class UserService : BaseService, IUserService
         {
             context.UserId = user.user_id;
             context.Email = user.email;
-            context.FirstName = user.first_name;
-            context.LastName = user.last_name;
-            context.Role = user.role;
         }
 
         var jwtTokenConfig =
@@ -150,9 +134,6 @@ public class UserService : BaseService, IUserService
         {
             context.UserId = user.user_id;
             context.Email = user.email;
-            context.FirstName = user.first_name;
-            context.LastName = user.last_name;
-            context.Role = user.role;
         }
 
         var jwtTokenConfig =
@@ -166,11 +147,10 @@ public class UserService : BaseService, IUserService
     public async Task<UserEntity> UpdateStatus(bool status, Guid userId)
     {
         var user = await _userRepo.GetByIdAsync<UserEntity>(userId);
-        if (user != null)
-        {
-            user.is_block = status;
-            return await _userRepo.UpdateAsync<UserEntity>(user, nameof(UserEntity.is_block));
-        }
+        // if (user != null)
+        // {
+        //     return await _userRepo.UpdateAsync<UserEntity>(user, nameof(UserEntity.is_block));
+        // }
 
         return user;
     }
@@ -186,19 +166,11 @@ public class UserService : BaseService, IUserService
         var token = CreateAuthenToken(context, jwtTokenConfig);
         var result = new Dictionary<string, object>
         {
-            { "Token", token },
-            { "TokenTimeout", jwtTokenConfig.ExpiredSeconds },
-            {
-                "Context", new
-                {
-                    context.UserId,
-                    context.Email,
-                    context.FirstName,
-                    context.LastName,
-                    context.TokenExpired,
-                    context.Role
-                }
-            }
+            { "token", token },
+            { "userId", context.UserId },
+            { "username", context.UserName},
+            { "displayName", context.DisplayName},
+            { "avatar", context.Avatar}
         };
         return result;
     }
@@ -211,8 +183,8 @@ public class UserService : BaseService, IUserService
         var claimIdentity = new ClaimsIdentity();
         claimIdentity.AddClaim(new Claim(TokenKeys.UserId, context.UserId.ToString()));
         claimIdentity.AddClaim(new Claim(TokenKeys.Email, context.Email));
-        claimIdentity.AddClaim(new Claim(TokenKeys.FirstName, context.FirstName));
-        claimIdentity.AddClaim(new Claim(TokenKeys.LastName, context.LastName));
+        // claimIdentity.AddClaim(new Claim(TokenKeys.FirstName, context.FirstName));
+        // claimIdentity.AddClaim(new Claim(TokenKeys.LastName, context.LastName));
 
         var expire = DateTime.Now.AddSeconds(jwtTokenConfig.ExpiredSeconds);
         context.TokenExpired = expire;

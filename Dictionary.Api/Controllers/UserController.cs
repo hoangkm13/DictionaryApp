@@ -35,20 +35,20 @@ public class UserController : BaseController<UserEntity>
             var res = await _userRepo.GetUserInfo(contextData.UserId);
             if (res != null)
             {
-                var actionResult = new ServiceResult((int)ApiStatus.Success, Resources.getDataSuccess, "", res, 200);
+                var actionResult = new ServiceResult((int)ApiStatus.Success, Resources.getDataSuccess, "", res, null);
                 return Ok(actionResult);
             }
             else
             {
                 var actionResult = new ServiceResult((int)ApiStatus.Fail, Resources.noReturnData, "",
-                    new List<UserEntity>(), 204);
+                    new List<UserEntity>(), "204");
                 return Ok(actionResult);
             }
         }
         catch (Exception exception)
         {
             var actionResult =
-                new ServiceResult((int)ApiStatus.Exception, Resources.error, exception.Message, null, 500);
+                new ServiceResult((int)ApiStatus.Exception, Resources.error, exception.Message, null, "500");
             return Ok(actionResult);
         }
     }
@@ -61,19 +61,19 @@ public class UserController : BaseController<UserEntity>
             var res = await _userRepo.GetUserInfo(userId);
             if (res != null)
             {
-                var actionResult = new ServiceResult((int)ApiStatus.Success, Resources.getDataSuccess, "", res, 200);
+                var actionResult = new ServiceResult((int)ApiStatus.Success, Resources.getDataSuccess, "", res, null);
                 return Ok(actionResult);
             }
             else
             {
                 var actionResult = new ServiceResult((int)ApiStatus.Fail, Resources.noReturnData, "",
-                    new List<UserEntity>(), 204);
+                    new List<UserEntity>(), "204");
                 return Ok(actionResult);
             }
         }
         catch (Exception exception)
         {
-            var actionResult = new ServiceResult((int)ApiStatus.Exception, Resources.error, exception.Message, null, 500);
+            var actionResult = new ServiceResult((int)ApiStatus.Exception, Resources.error, exception.Message, null, "500");
             return Ok(actionResult);
         }
     }
@@ -86,24 +86,24 @@ public class UserController : BaseController<UserEntity>
             var res = await _userService.Login(model);
             if (res != null)
             {
-                var actionResult = new ServiceResult((int)ApiStatus.Success, Resources.getDataSuccess, "", res, 200);
+                var actionResult = new ServiceResult((int)ApiStatus.Success, Resources.getDataSuccess, "", res, null);
                 return Ok(actionResult);
             }
             else
             {
                 var actionResult = new ServiceResult((int)ApiStatus.Fail, Resources.noReturnData, "",
-                    new List<UserEntity>(), 204);
+                    new List<UserEntity>(), "204");
                 return Ok(actionResult);
             }
         }
         catch (ValidateException exception)
         {
-            var actionResult = new ServiceResult((int)ApiStatus.Exception, exception.Message, "", 0, 400);
+            var actionResult = new ServiceResult((int)ApiStatus.Exception, exception.Message, "", 0, "400");
             return Ok(actionResult);
         }
         catch (Exception exception)
         {
-            var actionResult = new ServiceResult((int)ApiStatus.Exception, Resources.error, exception.Message, null, 500);
+            var actionResult = new ServiceResult((int)ApiStatus.Exception, Resources.error, exception.Message, null, "500");
             Console.WriteLine(exception.StackTrace);
             return Ok(actionResult);
         }
@@ -118,19 +118,19 @@ public class UserController : BaseController<UserEntity>
             var res = await _userService.GetToken(contextData.UserId);
             if (res != null)
             {
-                var actionResult = new ServiceResult((int)ApiStatus.Success, Resources.getDataSuccess, "", res, 200);
+                var actionResult = new ServiceResult((int)ApiStatus.Success, Resources.getDataSuccess, "", res, null);
                 return Ok(actionResult);
             }
             else
             {
                 var actionResult = new ServiceResult((int)ApiStatus.Fail, Resources.noReturnData, "",
-                    new List<UserEntity>(), 204);
+                    new List<UserEntity>(), "204");
                 return Ok(actionResult);
             }
         }
         catch (Exception exception)
         {
-            var actionResult = new ServiceResult((int)ApiStatus.Exception, Resources.error, exception.Message, null, 500);
+            var actionResult = new ServiceResult((int)ApiStatus.Exception, Resources.error, exception.Message, null, "500");
             return Ok(actionResult);
         }
     }
@@ -145,7 +145,7 @@ public class UserController : BaseController<UserEntity>
         }
         catch (Exception exception)
         {
-            var actionResult = new ServiceResult((int)ApiStatus.Exception, Resources.error, exception.Message, null, 500);
+            var actionResult = new ServiceResult((int)ApiStatus.Exception, Resources.error, exception.Message, null, "500");
             return Ok(actionResult);
         }
     }
@@ -159,18 +159,18 @@ public class UserController : BaseController<UserEntity>
             resetPassword.user_id = contextService.UserId;
             await _userService.ResetPassword(resetPassword);
 
-            var actionResult = new ServiceResult((int)ApiStatus.Success, "Cập nhật mật khẩu thành công!", "", null, 200);
+            var actionResult = new ServiceResult((int)ApiStatus.Success, "Cập nhật mật khẩu thành công!", "", null, null);
 
             return Ok(actionResult);
         }
         catch (ValidateException exception)
         {
-            var actionResult = new ServiceResult((int)ApiStatus.Exception, exception.Message, "", 0, 400);
+            var actionResult = new ServiceResult((int)ApiStatus.Exception, exception.Message, "", 0, "400");
             return Ok(actionResult);
         }
         catch (Exception exception)
         {
-            var actionResult = new ServiceResult((int)ApiStatus.Exception, Resources.error, exception.Message, null, 500);
+            var actionResult = new ServiceResult((int)ApiStatus.Exception, Resources.error, exception.Message, null, "500");
             return Ok(actionResult);
         }
     }
@@ -185,20 +185,20 @@ public class UserController : BaseController<UserEntity>
             var res = await _userService.UpdateUser(userUpdate);
             if (res != null)
             {
-                var actionResult = new ServiceResult((int)ApiStatus.Success, "Cập nhật thông tin tài khoản thành công!", "", null, 200);
+                var actionResult = new ServiceResult((int)ApiStatus.Success, "Cập nhật thông tin tài khoản thành công!", "", null, null);
 
                 return Ok(actionResult);
             }
             else
             {
                 var actionResult = new ServiceResult((int)ApiStatus.Fail, "Cập nhật thất bại!", "",
-                    null, 204);
+                    null, "204");
                 return Ok(actionResult);
             }
         }
         catch (Exception exception)
         {
-            var actionResult = new ServiceResult((int)ApiStatus.Exception, Resources.error, exception.Message, null, 500);
+            var actionResult = new ServiceResult((int)ApiStatus.Exception, Resources.error, exception.Message, null, "500");
             return Ok(actionResult);
         }
     }
@@ -211,20 +211,20 @@ public class UserController : BaseController<UserEntity>
             var res = await _userService.UpdateStatus(userUpdate.is_block, userUpdate.user_id);
             if (res != null)
             {
-                var actionResult = new ServiceResult((int)ApiStatus.Success, "Cập nhật thông tin khách hàng thành công!", "", null, 200);
+                var actionResult = new ServiceResult((int)ApiStatus.Success, "Cập nhật thông tin khách hàng thành công!", "", null, null);
 
                 return Ok(actionResult);
             }
             else
             {
                 var actionResult = new ServiceResult((int)ApiStatus.Fail, "Cập nhật thất bại!", "",
-                    null, 204);
+                    null, "204");
                 return Ok(actionResult);
             }
         }
         catch (Exception exception)
         {
-            var actionResult = new ServiceResult((int)ApiStatus.Exception, Resources.error, exception.Message, null, 500);
+            var actionResult = new ServiceResult((int)ApiStatus.Exception, Resources.error, exception.Message, null, "500");
             return Ok(actionResult);
         }
     }

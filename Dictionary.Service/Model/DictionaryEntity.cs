@@ -9,7 +9,7 @@ namespace Dictionary.Service.Model
         [Key] public Guid dictionary_id { get; set; }
 
         public Guid user_id { get; set; }
-        public string dictionaryName { get; set; }
+        public string dictionary_name { get; set; }
         public DateTime last_view_at { get; set; }
         public DateTime created_at { get; set; }
         public DateTime modified_at { get; set; }

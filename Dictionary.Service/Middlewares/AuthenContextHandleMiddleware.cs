@@ -99,8 +99,8 @@ public class AuthenContextHandleMiddleware
                 var contextData = new ContextData();
                 contextData.UserId = Guid.Parse(payload[TokenKeys.UserId].ToString());
                 contextData.Email = payload[TokenKeys.Email].ToString();
-                contextData.FirstName = payload[TokenKeys.FirstName].ToString();
-                contextData.LastName = payload[TokenKeys.LastName].ToString();
+                // contextData.FirstName = payload[TokenKeys.FirstName].ToString();
+                // contextData.LastName = payload[TokenKeys.LastName].ToString();
                 contextData.TokenExpired = DateTime.Parse(payload[TokenKeys.TokenExpired].ToString());
 
                 contextService.Set(contextData);

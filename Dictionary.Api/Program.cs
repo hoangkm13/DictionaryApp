@@ -10,6 +10,7 @@ public class Program
         CreateHostBuilder(args).Build().Run();
     }
 
+     // New comment
     public static IHostBuilder CreateHostBuilder(string[] args)
     {
         return Host.CreateDefaultBuilder(args)

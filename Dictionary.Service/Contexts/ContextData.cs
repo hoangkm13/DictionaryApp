@@ -15,9 +15,14 @@ public class ContextData
     /// </summary>
     public string Email { get; set; }
 
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
+    public string UserName { get; set; }
+    
+    public string DisplayName { get; set; }
+    
     public string Avatar { get; set; }
     public DateTime TokenExpired { get; set; }
-    public Role Role { get; set; }
+    
+    public Guid DictionaryId { get; set; }
+    
+    public string DictionaryName { get; set; }
 }

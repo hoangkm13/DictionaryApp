@@ -32,7 +32,7 @@ namespace Dictionary.Service.Service
             {
 
                 newDictionary.user_id = userId;
-                newDictionary.dictionaryName = existedDictionaryClone.dictionaryName;
+                newDictionary.dictionary_name = existedDictionaryClone.dictionary_name;
                 newDictionary.last_view_at = existedDictionaryClone.last_view_at;
                 newDictionary.created_at = DateTime.Now;
                 
@@ -41,7 +41,7 @@ namespace Dictionary.Service.Service
             {
                 newDictionary.dictionary_id = Guid.NewGuid();
                 newDictionary.user_id = userId;
-                newDictionary.dictionaryName = createDictionary.dictionary_name;
+                newDictionary.dictionary_name = createDictionary.dictionary_name;
                 newDictionary.last_view_at = createDictionary.last_view_at;
                 newDictionary.created_at = DateTime.Now;
             }
@@ -74,7 +74,7 @@ namespace Dictionary.Service.Service
             }
 
             existedDictionary.user_id = user_id;
-            existedDictionary.dictionaryName = updateDictionary.dictionary_name;
+            existedDictionary.dictionary_name = updateDictionary.dictionary_name;
             existedDictionary.modified_at = DateTime.Now;
 
             await _dictionaryRepo.UpdateAsync<DictionaryEntity>(existedDictionary);
@@ -107,7 +107,7 @@ namespace Dictionary.Service.Service
 
             var getListDictionary = new GetListDictionary();
             getListDictionary.dictionary_id = existedDictionary.dictionary_id;
-            getListDictionary.dictionary_name = existedDictionary.dictionaryName;
+            getListDictionary.dictionary_name = existedDictionary.dictionary_name;
             getListDictionary.last_view_at = existedDictionary.last_view_at;
 
             return getListDictionary;
@@ -124,7 +124,7 @@ namespace Dictionary.Service.Service
             {
                 var getListDictionary = new GetListDictionary();
                 getListDictionary.dictionary_id = dictionaryEntity.dictionary_id;
-                getListDictionary.dictionary_name = dictionaryEntity.dictionaryName;
+                getListDictionary.dictionary_name = dictionaryEntity.dictionary_name;
                 getListDictionary.last_view_at = dictionaryEntity.last_view_at;
                 getListDictionargeies.Add(getListDictionary);
             }

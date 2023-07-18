@@ -75,7 +75,7 @@ public class UserService : BaseService, IUserService
         var existedUser = await _userRepo.GetAsync<UserEntity>(field, value);
         var res = existedUser.FirstOrDefault();
 
-        if (res == null) throw new ValidateException("User doesn't exist", "");
+        if (res == null) throw new ValidateException("User doesn't exist", "", 400);
         var verified = BCrypt.Net.BCrypt.Verify(resetPassword.password, res.password);
         if (!verified)
             throw new ValidateException("Mật khẩu không chính xác, vui lòng kiểm tra lại", 0,
@@ -95,7 +95,7 @@ public class UserService : BaseService, IUserService
         var existedUser = await _userRepo.GetAsync<UserEntity>(field, value);
         var res = existedUser.FirstOrDefault();
 
-        if (res == null) throw new ValidateException("User doesn't exist", "");
+        if (res == null) throw new ValidateException("User doesn't exist",  null, 400);
         res.email = updateUser.email;
         res.birthday = updateUser.date_of_birth;
 

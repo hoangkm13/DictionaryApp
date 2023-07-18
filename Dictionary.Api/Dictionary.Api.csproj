@@ -15,6 +15,18 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="wwwroot\" />
+        <Compile Remove="obj\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Remove="obj\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Remove="obj\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Remove="obj\**" />
     </ItemGroup>
 </Project>

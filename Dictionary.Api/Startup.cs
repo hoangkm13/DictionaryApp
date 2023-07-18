@@ -38,6 +38,10 @@ public class Startup
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IUserRepo, UserRepo>();
 
+        services.AddScoped<IDictionaryService, DictionaryService>();
+        services.AddScoped<IDictionaryRepo, DictionaryRepo>();
+
+
         services.AddScoped<IContextService, WebContextService>();
     }
 

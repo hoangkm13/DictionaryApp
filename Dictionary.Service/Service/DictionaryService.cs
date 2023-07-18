@@ -13,7 +13,7 @@ namespace Dictionary.Service.Service
     public class DictionaryService : BaseService, IDictionaryService
     {
         private IDictionaryRepo _dictionaryRepo;
-        
+
 
         public DictionaryService(IDictionaryRepo dictionaryRepo) : base(dictionaryRepo)
         {
@@ -23,19 +23,18 @@ namespace Dictionary.Service.Service
         public async Task<DictionaryEntity> CreateDictionary(CreateDictionary createDictionary, Guid userId)
         {
             var newDictionary = new DictionaryEntity();
-            
-            var existedDictionaryClone = await _dictionaryRepo.GetByIdAsync<DictionaryEntity>(new Guid(createDictionary.clone_dictionary_id));
+
+            var existedDictionaryClone =
+                await _dictionaryRepo.GetByIdAsync<DictionaryEntity>(new Guid(createDictionary.clone_dictionary_id));
             var existedDictionary = (await _dictionaryRepo
                 .GetAsync<DictionaryEntity>("dictionary_name", createDictionary.dictionary_name))?.FirstOrDefault();
-            
-            if (existedDictionaryClone!= null)
-            {
 
+            if (existedDictionaryClone != null)
+            {
                 newDictionary.user_id = userId;
                 newDictionary.dictionary_name = existedDictionaryClone.dictionary_name;
                 newDictionary.last_view_at = existedDictionaryClone.last_view_at;
                 newDictionary.created_at = DateTime.Now;
-                
             }
             else if (existedDictionary == null)
             {
@@ -47,7 +46,7 @@ namespace Dictionary.Service.Service
             }
             else
             {
-                throw new ValidateException("Dictionary name already in use", "");
+                throw new ValidateException("Dictionary name already in use", null, 2001);
             }
 
             await _dictionaryRepo.InsertAsync<DictionaryEntity>(newDictionary);
@@ -62,15 +61,15 @@ namespace Dictionary.Service.Service
 
             if (existedDictionary == null)
             {
-                throw new ValidateException("Your Dictionary doesn't exist", "");
+                throw new ValidateException("Your Dictionary doesn't exist", null, 2000);
             }
-            
+
             var existedDictionaryName = (await _dictionaryRepo
                 .GetAsync<DictionaryEntity>("dictionary_name", updateDictionary.dictionary_name))?.FirstOrDefault();
-            
+
             if (existedDictionaryName != null)
             {
-                throw new ValidateException("Dictionary name already in use", "");
+                throw new ValidateException("Dictionary name already in use", null, 2001);
             }
 
             existedDictionary.user_id = user_id;
@@ -88,21 +87,21 @@ namespace Dictionary.Service.Service
 
             if (existedDictionary == null)
             {
-                throw new ValidateException("Your Dictionary doesn't exist", "");
+                throw new ValidateException("Your Dictionary doesn't exist", null, 2002);
             }
 
             await _dictionaryRepo.DeleteAsync(existedDictionary);
 
             return existedDictionary;
         }
-        
+
         public async Task<GetListDictionary> LoadDictionary(Guid dictionaryId)
         {
             var existedDictionary = await _dictionaryRepo.GetByIdAsync<DictionaryEntity>(dictionaryId);
 
             if (existedDictionary == null)
             {
-                throw new ValidateException("Your Dictionary doesn't exist", "");
+                throw new ValidateException("Your Dictionary doesn't exist", null, 2000);
             }
 
             var getListDictionary = new GetListDictionary();
@@ -130,6 +129,31 @@ namespace Dictionary.Service.Service
             }
 
             return getListDictionargeies;
+        }
+
+        public async Task<DictionaryEntity> TransferDictionary(TransferDictionary transferDictionary)
+        {
+            var dictionarySource =
+                await _dictionaryRepo.GetByIdAsync<DictionaryEntity>(transferDictionary.source_dictionary_id);
+            var dictionaryDest =
+                await _dictionaryRepo.GetByIdAsync<DictionaryEntity>(transferDictionary.dest_dictionary_id);
+
+            if (dictionarySource == null)
+            {
+                throw new ValidateException("Từ điển nguồn không có dữ liệu", null, 2003);
+            }
+            
+            if (dictionaryDest == null)
+            {
+                throw new ValidateException("Từ điển đích không có dữ liệu", null, 2003);
+            }
+
+            if (transferDictionary.is_delete_dest_data)
+            {
+                
+            }
+
+            return dictionaryDest;
         }
     }
 }

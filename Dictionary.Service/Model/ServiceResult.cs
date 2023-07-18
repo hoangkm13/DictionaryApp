@@ -2,7 +2,7 @@
 
 public class ServiceResult
 {
-    public ServiceResult(int status, string message, string code, dynamic data, int errorCode)
+    public ServiceResult(int status, string message, string code, dynamic data, string errorCode)
     {
         Status = status;
         Message = message;
@@ -20,5 +20,5 @@ public class ServiceResult
 
     public dynamic Data { get; set; }
 
-    public int ErrorCode { get; set; }
+    public string ErrorCode { get; set; }
 }

@@ -65,7 +65,7 @@ public class AuthenContextHandleMiddleware
             // Đăng nhập thất bại
             context.Response.StatusCode = 200;
             context.Response.ContentType = "application/json";
-            var result = new ServiceResult(-1, "Không thể truy cập", "", "", 401);
+            var result = new ServiceResult(-1, "Không thể truy cập", "", "", 401.ToString());
             var jsonResult = JsonConvert.SerializeObject(result);
             var content = Encoding.UTF8.GetBytes(jsonResult);
             await context.Response.Body.WriteAsync(content, 0, content.Length);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Dictionary.Service.Constants;
 using Dictionary.Service.DtoEdit.Dictionary;
+using Dictionary.Service.Exceptions;
 using Dictionary.Service.Interfaces.Repo;
 using Dictionary.Service.Interfaces.Service;
 using Dictionary.Service.Model;
@@ -36,20 +37,20 @@ namespace Dictionary.Api.Controllers
                 if (res != null)
                 {
                     var actionResult =
-                        new ServiceResult((int)ApiStatus.Success, Resources.getDataSuccess, "", res, 200);
+                        new ServiceResult((int)ApiStatus.Success, Resources.getDataSuccess, "", res, null);
                     return Ok(actionResult);
                 }
                 else
                 {
                     var actionResult = new ServiceResult((int)ApiStatus.Fail, Resources.noReturnData, "",
-                        new List<DictionaryEntity>(), 204);
+                        new List<DictionaryEntity>(), "204");
                     return Ok(actionResult);
                 }
             }
             catch (Exception exception)
             {
                 var actionResult = new ServiceResult((int)ApiStatus.Exception, Resources.error, exception.Message, null,
-                    500);
+                    "500");
                 return Ok(actionResult);
             }
         }
@@ -67,20 +68,20 @@ namespace Dictionary.Api.Controllers
                 if (res != null)
                 {
                     var actionResult =
-                        new ServiceResult((int)ApiStatus.Success, Resources.getDataSuccess, "", res, 200);
+                        new ServiceResult((int)ApiStatus.Success, Resources.getDataSuccess, "", res, null);
                     return Ok(actionResult);
                 }
                 else
                 {
                     var actionResult = new ServiceResult((int)ApiStatus.Fail, Resources.noReturnData, "",
-                        new List<DictionaryEntity>(), 204);
+                        new List<DictionaryEntity>(), "204");
                     return Ok(actionResult);
                 }
             }
             catch (Exception exception)
             {
                 var actionResult = new ServiceResult((int)ApiStatus.Exception, Resources.error, exception.Message, null,
-                    2001);
+                    "500");
                 return Ok(actionResult);
             }
         }
@@ -97,20 +98,20 @@ namespace Dictionary.Api.Controllers
                 if (res != null)
                 {
                     var actionResult =
-                        new ServiceResult((int)ApiStatus.Success, Resources.getDataSuccess, "", res, 200);
+                        new ServiceResult((int)ApiStatus.Success, Resources.getDataSuccess, "", res, null);
                     return Ok(actionResult);
                 }
                 else
                 {
                     var actionResult = new ServiceResult((int)ApiStatus.Fail, Resources.noReturnData, "",
-                        new List<DictionaryEntity>(), 204);
+                        new List<DictionaryEntity>(), "204");
                     return Ok(actionResult);
                 }
             }
             catch (Exception exception)
             {
                 var actionResult = new ServiceResult((int)ApiStatus.Exception, Resources.error, exception.Message, null,
-                    500);
+                    "500");
                 return Ok(actionResult);
             }
         }
@@ -124,24 +125,24 @@ namespace Dictionary.Api.Controllers
                 if (res != null)
                 {
                     var actionResult =
-                        new ServiceResult((int)ApiStatus.Success, Resources.getDataSuccess, "", res, 200);
+                        new ServiceResult((int)ApiStatus.Success, Resources.getDataSuccess, "", res, null);
                     return Ok(actionResult);
                 }
                 else
                 {
                     var actionResult = new ServiceResult((int)ApiStatus.Fail, Resources.noReturnData, "",
-                        new List<DictionaryEntity>(), 204);
+                        new List<DictionaryEntity>(), "204");
                     return Ok(actionResult);
                 }
             }
             catch (Exception exception)
             {
                 var actionResult = new ServiceResult((int)ApiStatus.Exception, Resources.error, exception.Message, null,
-                    500);
+                    "500");
                 return Ok(actionResult);
             }
         }
-        
+
         [HttpDelete("load_dictionary/{dictionary_id}")]
         public async Task<IActionResult> LoadDictionary(Guid dictionary_id)
         {
@@ -151,20 +152,54 @@ namespace Dictionary.Api.Controllers
                 if (res != null)
                 {
                     var actionResult =
-                        new ServiceResult((int)ApiStatus.Success, Resources.getDataSuccess, "", res, 200);
+                        new ServiceResult((int)ApiStatus.Success, Resources.getDataSuccess, "", res, null);
                     return Ok(actionResult);
                 }
                 else
                 {
                     var actionResult = new ServiceResult((int)ApiStatus.Fail, Resources.noReturnData, "",
-                        new List<DictionaryEntity>(), 2000);
+                        new List<DictionaryEntity>(), "204");
                     return Ok(actionResult);
                 }
             }
             catch (Exception exception)
             {
                 var actionResult = new ServiceResult((int)ApiStatus.Exception, Resources.error, exception.Message, null,
-                    500);
+                    "500");
+                return Ok(actionResult);
+            }
+        }
+
+        [HttpPost("transfer_dictionary")]
+        public async Task<IActionResult> TransferDictionary(TransferDictionary transferDictionary)
+        {
+            try
+            {
+                var res = await _dictionaryService.TransferDictionary(transferDictionary);
+                if (res != null)
+                {
+                    var actionResult =
+                        new ServiceResult((int)ApiStatus.Success, Resources.getDataSuccess, "", res, null);
+                    return Ok(actionResult);
+                }
+                else
+                {
+                    var actionResult = new ServiceResult((int)ApiStatus.Fail, Resources.noReturnData, "",
+                        new List<DictionaryEntity>(), "204");
+                    return Ok(actionResult);
+                }
+            }
+
+            catch (ValidateException exception)
+            {
+                var actionResult = new ServiceResult((int)ApiStatus.Exception, exception.Message, null, null,
+                    exception.resultCode.ToString());
+                return Ok(actionResult);
+            }
+            catch (Exception exception)
+            {
+                var actionResult = new ServiceResult((int)ApiStatus.Exception, Resources.error, exception.Message, null,
+                    "500");
                 return Ok(actionResult);
             }
         }

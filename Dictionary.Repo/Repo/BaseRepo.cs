@@ -594,7 +594,7 @@ public class BaseRepo : IBaseRepo
             Provider.CloseConnection(cnn);
         }
 
-        return new ServiceResult(200, Resources.getDataSuccess, "", result, totalRecord);
+        return new ServiceResult(200, Resources.getDataSuccess, "", result, null);
     }
 
     #endregion

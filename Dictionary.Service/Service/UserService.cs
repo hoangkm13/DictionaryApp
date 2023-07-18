@@ -64,7 +64,7 @@ public class UserService : BaseService, IUserService
         var existedUser = await _userRepo.GetAsync<UserEntity>(field, value);
         var res = existedUser.FirstOrDefault();
 
-        if (res == null) throw new ValidateException("User doesn't exist", "");
+        if (res == null) throw new ValidateException("User doesn't exist", null, 400);
         var verified = BCrypt.Net.BCrypt.Verify(resetPassword.password, res.password);
         if (!verified)
             throw new ValidateException("Mật khẩu không chính xác, vui lòng kiểm tra lại", 0,
@@ -84,7 +84,7 @@ public class UserService : BaseService, IUserService
         var existedUser = await _userRepo.GetAsync<UserEntity>(field, value);
         var res = existedUser.FirstOrDefault();
 
-        if (res == null) throw new ValidateException("User doesn't exist", "");
+        if (res == null) throw new ValidateException("User doesn't exist", "", 400);
 
         res.first_name = updateUser.first_name;
         res.last_name = updateUser.last_name;
@@ -120,7 +120,7 @@ public class UserService : BaseService, IUserService
         // Check tồn tại Số điện thoại
         var existUserPhone = (await _userRepo.GetAsync<UserEntity>("phone", newUser.phone))?.FirstOrDefault();
         if (existUserPhone != null)
-            return new ServiceResult(-1, Resources.msgExistPhone, null, newUser, int.Parse(ResultCode.ExistPhone));
+            return new ServiceResult(-1, Resources.msgExistPhone, null, newUser, int.Parse(ResultCode.ExistPhone).ToString());
         var user = await _userRepo.InsertAsync<UserEntity>(newUser);
         
         var context = new ContextData();

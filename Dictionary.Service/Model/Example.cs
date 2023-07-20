@@ -7,14 +7,14 @@ namespace Dictionary.Service.Model;
 public class Example : BaseModel
 {
     [Key] 
-    public Guid exampleId { get; set; }
-    public string dictionaryId { get; set; }
+    public Guid example_id { get; set; }
+    public string dictionary_id { get; set; }
     public string detail { get; set; }
-    public string detailHtml { get; set; }
+    public string detail_html { get; set; }
     public string note { get; set; }
-    public string toneId { get; set; }
-    public string registerId { get; set; }
-    public string dialectId { get; set; }
-    public string modeId { get; set; }
-    public string nuanceId { get; set; }
+    public string tone_id { get; set; }
+    public string register_id { get; set; }
+    public string dialect_id { get; set; }
+    public string mode_id { get; set; }
+    public string nuance_id { get; set; }
 }

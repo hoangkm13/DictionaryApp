@@ -8,10 +8,10 @@ namespace Dictionary.Service.Model;
 public class Dialect : BaseModel
 {
     [Key]
-    public Guid dialectId { get; set; }
-    public Guid sysDialectId { get; set; }
-    public Guid userId { get; set; }
-    public string dialectName { get; set; }
-    public int dialectType { get; set; }
-    public int sortOrder { get; set; }
+    public Guid dialect_d { get; set; }
+    public Guid sys_dialect_id { get; set; }
+    public Guid user_id { get; set; }
+    public string dialect_name { get; set; }
+    public int dialect_type { get; set; }
+    public int sort_order { get; set; }
 }

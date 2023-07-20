@@ -12,7 +12,7 @@ public class ResetPassword
     /// <summary>
     ///     password hiện tại
     /// </summary>
-    public string password { get; set; }
+    public string old_password { get; set; }
 
     /// <summary>
     ///     new_password

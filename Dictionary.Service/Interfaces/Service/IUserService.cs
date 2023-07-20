@@ -27,14 +27,14 @@ public interface IUserService : IBaseService
     ///     Reset Password
     /// </summary>
     /// <param name="resetPassword"></param>
-    Task ResetPassword(ResetPassword resetPassword);
+    Task<ServiceResult> ResetPassword(ResetPassword resetPassword);
 
     /// <summary>
     ///     update user info
     /// </summary>
     /// <param name="updateUser"></param>
     /// <returns></returns>
-    Task<UserInfo> UpdateUser(UpdateUser updateUser);
+    Task<Dictionary<string, object>> UpdateUser(UpdateUser updateUser);
 
     /// <summary>
     ///     Lấy token
@@ -45,4 +45,6 @@ public interface IUserService : IBaseService
     ///     chập nhật trạng thái
     /// </summary>
     Task<UserEntity> UpdateStatus(bool status, Guid userId);
+
+    Task<ServiceResult> ForgotPassword(ForgotModel forgotModel);
 }

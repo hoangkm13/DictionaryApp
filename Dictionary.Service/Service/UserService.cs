@@ -67,27 +67,47 @@ public class UserService : BaseService, IUserService
     /// <summary>
     ///     Reset Password
     /// </summary>
-    public async Task ResetPassword(ResetPassword resetPassword)
+    public async Task<ServiceResult> ResetPassword(ResetPassword resetPassword)
     {
-        var field = "user_id";
-        object value = resetPassword.user_id;
-
-        var existedUser = await _userRepo.GetAsync<UserEntity>(field, value);
+        var existedUser = await _userRepo.GetAsync<UserEntity>("user_id", resetPassword.user_id);
         var res = existedUser.FirstOrDefault();
 
-        if (res == null) throw new ValidateException("User doesn't exist", "", 400);
-        var verified = BCrypt.Net.BCrypt.Verify(resetPassword.password, res.password);
+        if (res == null)
+        {
+            return new ServiceResult(
+                2, 
+                "Người dùng không tồn tại", 
+                "", 
+                null,
+                "400"
+            );
+        }
+        var verified = resetPassword.old_password == res.password;
         if (!verified)
-            throw new ValidateException("Mật khẩu không chính xác, vui lòng kiểm tra lại", 0,
-                int.Parse(ResultCode.WrongPassword));
-        var encodedData = BCrypt.Net.BCrypt.HashPassword(resetPassword.new_password);
-        res.password = encodedData;
+        {
+            return new ServiceResult(
+                2, 
+                "Mật khẩu cũ không chính xaác!", 
+                "", 
+                null,
+                "1000"
+            );
+        }
+
+        res.password = resetPassword.new_password;
 
         await _userRepo.UpdateAsync<UserEntity>(res, "password");
+        
+        return new ServiceResult(
+            1, 
+            "Cập nhật mật khẩu thành công!", 
+            "", 
+            null,
+            ""
+            );
     }
-
-
-    public async Task<UserInfo> UpdateUser(UpdateUser updateUser)
+    
+    public async Task<Dictionary<string, object>> UpdateUser(UpdateUser updateUser)
     {
         var field = "user_id";
         object value = updateUser.user_id;
@@ -95,29 +115,39 @@ public class UserService : BaseService, IUserService
         var existedUser = await _userRepo.GetAsync<UserEntity>(field, value);
         var res = existedUser.FirstOrDefault();
 
-        if (res == null) throw new ValidateException("User doesn't exist",  null, 400);
-        res.email = updateUser.email;
-        res.birthday = updateUser.date_of_birth;
+        if (res == null) return null;
+        res.birthday = DateTime.Parse(updateUser.birthday);
+        res.avatar = updateUser.avatar;
+        res.full_name = updateUser.fullName;
+        res.position = updateUser.position;
+        res.display_name = updateUser.displayName;
 
         await _userRepo.UpdateAsync<UserEntity>(res);
 
-        var data = await _userRepo.GetUserInfo(updateUser.user_id);
-
-        return data;
+        return new Dictionary<string, object>
+        {
+            {"displayName", res.display_name},
+            {"avatar", res.avatar}
+        };
     }
 
     public async Task<ServiceResult> Signup(SignupModel model)
     {
         var newUser = new UserEntity();
         newUser.user_id = Guid.NewGuid();
-        newUser.email = model.email;
-        newUser.password = BCrypt.Net.BCrypt.HashPassword(model.password);
-        // newUser.avatar = Common.SaveImage(_httpContextAccessor.HttpContext.Request.Host.Value, model.avatar);
+        newUser.email = model.username;
+        newUser.password = model.password;
+
         // Check tồn tại Email
         var existUserEmail = (await _userRepo.GetAsync<UserEntity>("email", newUser.email))?.FirstOrDefault();
-        // if (existUserEmail != null)
-            // return new ServiceResult(int.Parse(ResultCode.ExistEmail), Resources.msgExistEmail, "", newUser);
-        // Check tồn tại Số điện thoại
+        if (existUserEmail != null)
+            return new ServiceResult(
+                2, 
+                Resources.msgExistEmail, 
+                "", 
+                null,
+                "1001");
+        
         var user = await _userRepo.InsertAsync<UserEntity>(newUser);
         
         var context = new ContextData();
@@ -132,8 +162,7 @@ public class UserService : BaseService, IUserService
                 .GetConnectionString("JwtTokenConfig"));
 
         var data = await GetContextReturn(context, jwtTokenConfig);
-        // return new ServiceResult(200, Resources.signupSuccess, "", data);
-        return null;
+        return new ServiceResult(1, Resources.signupSuccess, "", data, "");
     }
 
     public async Task<Dictionary<string, object>> GetToken(Guid userId)
@@ -165,11 +194,20 @@ public class UserService : BaseService, IUserService
         return user;
     }
 
-    /// <summary>
-    ///     Lấy thông tin trả về client
-    /// </summary>
-    /// <param name="user"></param>
-    /// <param name="expiredSeconds">Thời gian hết hạn</param>
+    public async Task<ServiceResult> ForgotPassword(ForgotModel forgotModel) 
+    {
+        var user = await _userRepo.GetAsync<UserEntity>("email", forgotModel.email);
+
+        var foundUser = user.FirstOrDefault();
+        
+        if (foundUser == null)
+        {
+            return new ServiceResult(2, "Không tồn tại email người dùng!" , "", null, "1002");
+        }
+
+        return new ServiceResult(1, "Send verify token successfully!", "", null, "");
+    }
+
     private async Task<Dictionary<string, object>> GetContextReturn(ContextData context,
         JwtTokenConfig jwtTokenConfig)
     {

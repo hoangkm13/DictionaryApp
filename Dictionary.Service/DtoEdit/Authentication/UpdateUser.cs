@@ -9,35 +9,13 @@ public class UpdateUser
     /// </summary>
     public Guid user_id { get; set; }
 
-    /// <summary>
-    ///     Họ người dùng
-    ///     <summary>
-    public string first_name { get; set; }
+    public string displayName { get; set; }
 
-    /// <summary>
-    ///     Tên người dùng
-    ///     <summary>
-    public string last_name { get; set; }
+    public string fullName { get; set; }
 
-    /// <summary>
-    ///     Số điện thoại người dùng
-    ///     <summary>
-    public string phone { get; set; }
-
-    /// <summary>
-    ///     Giới tính
-    /// </summary>
-    public int? gender { get; set; }
-
-    /// <summary>
-    ///     Ngày sinh
-    /// </summary>
-    public DateTime? date_of_birth { get; set; }
-
-    /// <summary>
-    ///     user_id
-    /// </summary>
-    public string email { get; set; }
-
-    public bool is_block { get; set; }
+    public string birthday { get; set; }
+    
+    public string position { get; set; }
+    
+    public string avatar { get; set; }
 }

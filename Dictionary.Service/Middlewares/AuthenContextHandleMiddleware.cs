@@ -126,6 +126,9 @@ public class AuthenContextHandleMiddleware
             "/api/Users/signup",
             //test
             "/api/Dictionaries",
+            "api/Users/account/forgot_password",
+            "api/Users/user/update_password",
+            "user/update_user_info"
         };
         if (lstPath.Any(x => path.Contains(x))) return true;
         return false;

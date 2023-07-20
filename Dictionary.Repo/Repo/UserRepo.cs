@@ -41,23 +41,24 @@ public class UserRepo : BaseRepo, IUserRepo
     public async Task<UserEntity> Login(LoginModel model)
     {
         var sql = string.Format(@"SELECT * FROM {0} 
-                    WHERE (email=@email)
+                    WHERE (user_name=@user_name)
                     LIMIT 1;",
             GetTableName(typeof(UserEntity)));
         var param = new Dictionary<string, object>
         {
-            { "email", model.username }
+            { "user_name", model.username }
         };
         var result = await Provider.QueryAsync<UserEntity>(sql, param);
         var res = result?.FirstOrDefault();
         if (res == null)
-            throw new ValidateException("Tài khoản không tồn tại, vui lòng kiểm tra lại", model,
-                int.Parse(ResultCode.WrongAccount));
+            throw new ValidateException("Email hoặc mật khẩu không chính xác!", model,
+                1000);
         
-        // var verified = BCrypt.Net.BCrypt.Verify(model.password, res.password);
-        // if (!verified)
-        //     throw new ValidateException("Mật khẩu không chính xác, vui lòng kiểm tra lại", model,
-        //         int.Parse(ResultCode.WrongPassword));
+        var verified = (model.password == res.password);
+        
+        if (!verified)
+            throw new ValidateException("Email hoặc mật khẩu không chính xác!", model,
+                1000);
         
         return result.FirstOrDefault();
     }

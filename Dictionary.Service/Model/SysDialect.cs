@@ -6,6 +6,6 @@ namespace Dictionary.Service.Model;
 [Table("sys_dialect")]
 public class SysDialect
 {
-    public Guid sysDialectId { get; set; }
-    public string dialectName { get; set; }
+    public Guid sys_dialect_id { get; set; }
+    public string dialect_name { get; set; }
 }

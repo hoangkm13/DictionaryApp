@@ -7,13 +7,13 @@ namespace Dictionary.Service.Model;
 public class ConceptLink : BaseModel
 {
     [Key]
-    public Guid conceptLinkId { get; set; }
+    public Guid concept_link_id { get; set; }
 
-    public Guid sysConceptLinkId { get; set; }
+    public Guid sys_concept_link_id { get; set; }
 
-    public string conceptLinkName { get; set; }
+    public string concept_link_name { get; set; }
 
-    public string conceptLinkType { get; set; }
+    public string concept_link_type { get; set; }
     
-    public int sortOrder { get; set; }
+    public int sort_order { get; set; }
 }

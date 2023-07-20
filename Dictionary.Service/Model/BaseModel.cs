@@ -4,6 +4,6 @@ namespace Dictionary.Service.Model;
 
 public class BaseModel
 {
-    public DateTime createdAt { get; set; }
-    public DateTime modifiedAt { get; set; }
+    public DateTime created_at { get; set; }
+    public DateTime modified_at { get; set; }
 }

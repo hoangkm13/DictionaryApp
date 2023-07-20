@@ -7,9 +7,9 @@ namespace Dictionary.Service.Model;
 public class ExampleRelationship : BaseModel
 {
     [Key]
-    public Guid exampleRelationShipId { get; set; }
-    public Guid dictionaryId { get; set; }
-    public Guid contentId { get; set; }
-    public Guid exampleId { get; set; }
-    public Guid exampleLinkId { get; set; }
+    public Guid example_relation_ship_id { get; set; }
+    public Guid dictionary_id { get; set; }
+    public Guid content_id { get; set; }
+    public Guid example_id { get; set; }
+    public Guid example_link_id { get; set; }
 }

@@ -37,11 +37,13 @@ public class Startup
 
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IUserRepo, UserRepo>();
-
+        
+        services.AddScoped<IConceptService, ConceptService>();
+        services.AddScoped<IConceptRepo, ConceptRepo>();
+        
         services.AddScoped<IDictionaryService, DictionaryService>();
         services.AddScoped<IDictionaryRepo, DictionaryRepo>();
-
-
+        
         services.AddScoped<IContextService, WebContextService>();
     }
 
@@ -64,11 +66,11 @@ public class Startup
         app.UseStaticFiles();
 
         // Sử dụng authen context
-        app.UseSetAuthContextHandler();
+        // app.UseSetAuthContextHandler();
 
         app.UseRouting();
 
-        app.UseAuthorization();
+        // app.UseAuthorization();
 
         app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
     }

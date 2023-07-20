@@ -8,10 +8,10 @@ namespace Dictionary.Service.Model;
 public class Nuance : BaseModel
 {
     [Key]
-    public Guid nuanceId { get; set; }
-    public Guid sysNuanceId { get; set; }
-    public Guid userId { get; set; }
-    public string nuanceName { get; set; }
-    public int nuanceType { get; set; }
-    public int sortOrder { get; set; }
+    public Guid nuance_id { get; set; }
+    public Guid sys_nuance_id { get; set; }
+    public Guid user_id { get; set; }
+    public string nuance_name { get; set; }
+    public int nuance_type { get; set; }
+    public int sort_order { get; set; }
 }

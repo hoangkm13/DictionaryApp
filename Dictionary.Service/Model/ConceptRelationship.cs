@@ -8,9 +8,9 @@ namespace Dictionary.Service.Model;
 public class ConceptRelationship : BaseModel
 {
     [Key]
-    public Guid conceptRelationShipId { get; set; }
-    public Guid dictionaryId { get; set; }
-    public Guid conceptId { get; set; }
-    public Guid parentId { get; set; }
-    public Guid coneptLinkId { get; set; }
+    public Guid concept_relation_ship_id { get; set; }
+    public Guid dictionary_id { get; set; }
+    public Guid concept_id { get; set; }
+    public Guid parent_id { get; set; }
+    public Guid concept_link_id { get; set; }
 }

@@ -14,5 +14,4 @@ public interface IConceptRepo : IBaseRepo
     Task<List<Example>> GetListExampleLinkConcept(string conceptId);
     
     Task<List<Concept>> SearchConcept(string searchKey, string dictionaryId);
-    
 }

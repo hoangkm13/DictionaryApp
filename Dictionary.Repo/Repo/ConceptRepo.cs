@@ -58,4 +58,19 @@ public class ConceptRepo : BaseRepo, IConceptRepo
         return result;
     }
     
+    public async Task<List<Concept>> GetConceptRelationship(string conceptId, string parentId)
+    {
+        string sql = "SELECT * FROM concept_relationship WHERE concept_id = @conceptId AND parent_id = @parentId";
+
+        var param = new Dictionary<string,object>
+        {
+            { "conceptId", conceptId},
+            { "parent_id", parentId},
+        };
+        
+        var result = await Provider.QueryAsync<Concept>(sql, param);
+
+        return result;
+    }
+    
 }

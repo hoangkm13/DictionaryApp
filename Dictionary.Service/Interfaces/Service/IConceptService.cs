@@ -20,4 +20,5 @@ public interface IConceptService : IBaseService
 
     Task<ConceptLinkExampleResponse> GetConcept(string conceptId);
     Task<List<Concept>> SearchConcept(string searchKey, string dictionaryId);
+    Task<List<ConceptRelationship>> GetConceptRelationship(string conceptId, string parentId);
 }

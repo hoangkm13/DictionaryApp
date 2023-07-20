@@ -197,4 +197,28 @@ public class ConceptController : BaseController<Concept>
             return Ok(actionResult);
         }
     }
+    
+    [HttpGet("get_concept_relationship")]
+    public async Task<IActionResult> GetConceptRelationship([FromQuery][Required] string conceptId, [FromQuery] string parentId)
+    {
+        try
+        {
+            var res = await _iConceptService.GetConceptRelationship(conceptId, parentId);
+            if (res != null)
+            {
+                var actionResult = new ServiceResult((int)ApiStatus.Success, Resources.getDataSuccess, "", res, "");
+                return Ok(actionResult);
+            }
+            else
+            {
+                var actionResult = new ServiceResult((int)ApiStatus.Fail, Resources.noReturnData, "", new Object(), "");
+                return Ok(actionResult);
+            }
+        }
+        catch (Exception exception)
+        {
+            var actionResult = new ServiceResult((int)ApiStatus.Exception, Resources.error, "", exception.Message, "");
+            return Ok(actionResult);
+        }
+    }
 }

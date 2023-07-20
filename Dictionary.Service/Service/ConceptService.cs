@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +11,11 @@ using Microsoft.AspNetCore.Http;
 
 namespace Dictionary.Service.Service;
 
-public class ConceptService  : BaseService, IConceptService
+public class ConceptService : BaseService, IConceptService
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly IConceptRepo _conceptRepo;
+    private readonly IConceptRelationshipRepo _conceptRelationshipRepo;
 
     public ConceptService(IConceptRepo conceptRepo,
         IHttpContextAccessor httpContextAccessor) : base(conceptRepo)
@@ -46,7 +46,7 @@ public class ConceptService  : BaseService, IConceptService
         newConcept.description = conceptDto.description;
         newConcept.title = conceptDto.title;
         newConcept.created_date = DateTime.Now;
-        
+
         return await _conceptRepo.InsertAsync<Concept>(newConcept);
     }
 
@@ -70,10 +70,10 @@ public class ConceptService  : BaseService, IConceptService
     public async Task<Concept> DeleteConcept(string conceptId, bool isForced)
     {
         if (string.IsNullOrEmpty(conceptId))
-        { 
+        {
             throw new ArgumentException("conceptId không hợp lệ.");
         }
-        
+
         var concept = await _conceptRepo.GetByIdAsync<Concept>(conceptId);
 
         if (isForced)
@@ -95,10 +95,10 @@ public class ConceptService  : BaseService, IConceptService
     public async Task<ConceptLinkExampleResponse> GetConcept(string conceptId)
     {
         if (string.IsNullOrEmpty(conceptId))
-        { 
+        {
             throw new ArgumentException("conceptId không hợp lệ.");
         }
-        
+
         var concept = await _conceptRepo.GetByIdAsync<Concept>(conceptId);
         var exampleList = await _conceptRepo.GetListExampleLinkConcept(conceptId);
 
@@ -107,7 +107,14 @@ public class ConceptService  : BaseService, IConceptService
 
     public async Task<List<Concept>> SearchConcept(string searchKey, string dictionaryId)
     {
-        var conceptList = await _conceptRepo.SearchConcept(searchKey ,dictionaryId);
+        var conceptList = await _conceptRepo.SearchConcept(searchKey, dictionaryId);
+
+        return conceptList;
+    }
+
+    public async Task<List<ConceptRelationship>> GetConceptRelationship(string conceptId, string parentId)
+    {
+        var conceptList = await _conceptRelationshipRepo.GetConceptRelationship(conceptId, parentId);
 
         return conceptList;
     }

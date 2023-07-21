@@ -161,5 +161,11 @@ namespace Dictionary.Service.Service
 
             return dictionaryDest;
         }
+
+        public async Task<DictionaryEntity> GetDictionaryByUserId(Guid userId)
+        {
+            var dictionary = await _dictionaryRepo.GetDictionaryByUserId(userId);
+            return dictionary;
+        }
     }
 }

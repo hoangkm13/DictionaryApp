@@ -8,6 +8,7 @@ using Dictionary.Service.Interfaces.Repo;
 using Dictionary.Service.Interfaces.Service;
 using Dictionary.Service.Model;
 using Microsoft.AspNetCore.Http;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Dictionary.Service.Service;
 
@@ -117,5 +118,49 @@ public class ConceptService : BaseService, IConceptService
         var conceptList = await _conceptRelationshipRepo.GetConceptRelationship(conceptId, parentId);
 
         return conceptList;
+    }
+
+    public async Task<List<Concept>> GetSavedSearch(Guid dictionaryId)
+    {
+        var savedConcepts = await _conceptRepo.GetSavedSearch(dictionaryId);
+
+        return savedConcepts;
+    }
+
+    public async Task<object> DeleteSavedSearch(string conceptName, bool doDeleteAll)
+    {
+        if (string.IsNullOrEmpty(conceptName))
+        { 
+            throw new ArgumentException("conceptName không hợp lệ.");
+        }
+        var concepts = await _conceptRepo.GetAsync<Concept>("title", conceptName);
+
+        if (doDeleteAll == false && !concepts.IsNullOrEmpty())
+        {
+           var concept = concepts.OrderByDescending(x => x.created_date)
+                .ToList();
+
+           await _conceptRepo.DeleteAsync(concept);
+            
+           return concept;
+        }
+        else
+        {
+            await _conceptRepo.DeleteAllConcept();
+        }
+
+        return null;
+    }
+
+    public async Task<List<Concept>> GetListRecommendConcept(List<string> listKeyword)
+    {
+        List<Concept> concepts = new List<Concept>();
+        foreach (var keyword in listKeyword)
+        {
+            var concept = await _conceptRepo.GetConceptRecommend(keyword);
+            concepts.Add(concept);
+        }
+
+        return concepts;
     }
 }

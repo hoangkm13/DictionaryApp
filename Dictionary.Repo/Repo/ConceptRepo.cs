@@ -57,6 +57,20 @@ public class ConceptRepo : BaseRepo, IConceptRepo
 
         return result;
     }
+
+    public async Task<List<Concept>> GetSavedSearch(Guid dictionaryId)
+    {
+        string sql = "SELECT * FROM concept WHERE dictionary_id = @dictionaryId";
+
+        var param = new Dictionary<string,object>
+        {
+            { "dictionaryId", dictionaryId},
+        };
+        
+        var result = await Provider.QueryAsync<Concept>(sql, param);
+
+        return result;
+    }
     
     public async Task<List<Concept>> GetConceptRelationship(string conceptId, string parentId)
     {
@@ -73,4 +87,27 @@ public class ConceptRepo : BaseRepo, IConceptRepo
         return result;
     }
     
+
+    public async Task<object> DeleteAllConcept()
+    {
+        string sql = "DELETE FROM concept";
+        
+        var result = await Provider.QueryAsync<Concept>(sql, null);
+        
+        return new List<object>();
+    }
+
+    public async Task<Concept> GetConceptRecommend(string keyword)
+    {
+        string sql = "SELECT * FROM concept WHERE title LIKE @keyword";
+        
+        var param = new Dictionary<string,object>
+        {
+            { "title", keyword}
+        };
+        
+        var result = await Provider.QueryAsync<Concept>(sql, param);
+
+        return result[0];
+    }
 }

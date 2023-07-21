@@ -17,5 +17,7 @@ namespace Dictionary.Service.Interfaces.Service
         
         Task<List<GetListDictionary>> GetDictionaries(Guid user_id);
         Task<DictionaryEntity> TransferDictionary(TransferDictionary transferDictionary);
+
+        Task<DictionaryEntity> GetDictionaryByUserId(Guid userId);
     }
 }

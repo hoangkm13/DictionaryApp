@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Dictionary.Service.DtoEdit;
@@ -14,4 +15,10 @@ public interface IConceptRepo : IBaseRepo
     Task<List<Example>> GetListExampleLinkConcept(string conceptId);
     
     Task<List<Concept>> SearchConcept(string searchKey, string dictionaryId);
+
+    Task<List<Concept>> GetSavedSearch(Guid dictionaryId);
+
+    Task<object> DeleteAllConcept();
+
+    Task<Concept> GetConceptRecommend(string keyword);
 }

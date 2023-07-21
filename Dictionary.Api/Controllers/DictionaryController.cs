@@ -56,7 +56,7 @@ namespace Dictionary.Api.Controllers
         }
 
 
-        [HttpPost("create")]
+        [HttpPost("add_dictionary")]
         public async Task<IActionResult> CreateDictionary([FromBody] CreateDictionary createDictionary)
         {
             try
@@ -86,7 +86,7 @@ namespace Dictionary.Api.Controllers
             }
         }
 
-        [HttpPut("update")]
+        [HttpPut("update_dictionary")]
         public async Task<IActionResult> UpdateDictionary([FromBody] UpdateDictionary updateDictionary)
         {
             try
@@ -116,7 +116,7 @@ namespace Dictionary.Api.Controllers
             }
         }
 
-        [HttpDelete("delete/{dictionary_id}")]
+        [HttpDelete("delete_dictionary/{dictionary_id}")]
         public async Task<IActionResult> DeleteDictionary(Guid dictionary_id)
         {
             try

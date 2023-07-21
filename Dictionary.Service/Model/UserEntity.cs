@@ -35,4 +35,6 @@ public class UserEntity
     public DateTime created_at { get; set; }
     
     public DateTime modified_at { get; set; }
+
+    public string verify_token { get; set; }
 }

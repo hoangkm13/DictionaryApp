@@ -47,4 +47,10 @@ public interface IUserService : IBaseService
     Task<UserEntity> UpdateStatus(bool status, Guid userId);
 
     Task<ServiceResult> ForgotPassword(ForgotModel forgotModel);
+
+    Task<ServiceResult> ActiveAccount();
+
+    Task<ServiceResult> ResetPasswordByVerifyToken(ResetPasswordByToken resetPasswordByToken);
+
+    Task<ServiceResult> SendActiveEmail(SendActiveEmail sendActiveEmail);
 }

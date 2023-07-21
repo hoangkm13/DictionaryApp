@@ -69,7 +69,8 @@ public class UserService : BaseService, IUserService
     /// </summary>
     public async Task<ServiceResult> ResetPassword(ResetPassword resetPassword)
     {
-        var existedUser = await _userRepo.GetAsync<UserEntity>("user_id", resetPassword.user_id);
+        Guid user_id = new Guid("b0da65f9-dc39-11ed-a1e6-a44cc8756a37");
+        var existedUser = await _userRepo.GetAsync<UserEntity>("user_id", user_id);
         var res = existedUser.FirstOrDefault();
 
         if (res == null)
@@ -206,6 +207,93 @@ public class UserService : BaseService, IUserService
         }
 
         return new ServiceResult(1, "Send verify token successfully!", "", null, "");
+    }
+
+    public async Task<ServiceResult> ActiveAccount()
+    {
+        string verifyToken = "verify_token_example";
+        Guid user_id = new Guid("b0da65f9-dc39-11ed-a1e6-a44cc8756a37");
+
+        var query_user = await _userRepo.GetAsync<UserEntity>("user_id", user_id);
+
+        var user = query_user.FirstOrDefault();
+
+        if (user == null)
+        {
+            return new ServiceResult(2, "User not exist!", "", null, "1001");
+        }
+
+        if (user.verify_token != verifyToken)
+        {
+            return new ServiceResult(2, "Token không hợp lệ!", "", null, "1003");
+        }
+
+        if (user.status == 1)
+        {
+            return new ServiceResult(2, "Người dùng đã kích hoạt tài khoản!", "", null, "9000");
+        }
+
+        user.status = 1;
+        user.verify_token = "";
+
+        await UpdateAsync<UserEntity>(user);
+        
+        return new ServiceResult(1, "Kích hoạt tài khoản thành công!", "", null, "");
+    }
+
+    public async Task<ServiceResult> ResetPasswordByVerifyToken(ResetPasswordByToken resetPasswordByToken)
+    {
+        string verifyToken = resetPasswordByToken.verifyToken;
+        Guid user_id = new Guid("b0da65f9-dc39-11ed-a1e6-a44cc8756a37");
+        
+        var query_user = await _userRepo.GetAsync<UserEntity>("user_id", user_id);
+
+        var user = query_user.FirstOrDefault();
+        
+        if (user == null)
+        {
+            return new ServiceResult(2, "User not exist!", "", null, "1001");
+        }
+
+        if (user.verify_token != verifyToken)
+        {
+            return new ServiceResult(2, "Token không hợp lệ!", "", null, "1003");
+        }
+
+        user.password = resetPasswordByToken.newPassword;
+        user.verify_token = "";
+
+        await _userRepo.UpdateAsync<UserEntity>(user);
+
+        return new ServiceResult(1, "Cập nhật mật khẩu thành công!", "", null, "");
+    }
+
+    public async Task<ServiceResult> SendActiveEmail(SendActiveEmail sendActiveEmail)
+    {
+        var query_user = await _userRepo.GetAsync<UserEntity>("email", sendActiveEmail.username);
+
+        var user = query_user.FirstOrDefault();
+
+        if (user == null)
+        {
+            return new ServiceResult(2, "Email chưa được đăng ký!", "", null, "1003");
+        }
+        
+        if (user.status == 1)
+        {
+            return new ServiceResult(2, "Tài khoản đã được kích hoạt!", "", null, "1003");
+        }
+
+        if (user.password != sendActiveEmail.password)
+        {
+            return new ServiceResult(2, "Tài khoản không tồn tại!", "", null, "1003");
+        }
+
+        user.verify_token = "verify_token";
+
+        await _userRepo.UpdateAsync<UserEntity>(user);
+        
+        return new ServiceResult(1, "Gửi token kích hoạt tài khoản thành công!", "", null, ""); 
     }
 
     private async Task<Dictionary<string, object>> GetContextReturn(ContextData context,

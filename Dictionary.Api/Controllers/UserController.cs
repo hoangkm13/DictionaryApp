@@ -182,9 +182,67 @@ public class UserController : BaseController<UserEntity>
             return Ok(actionResult);
         }
     }
+    
+    [HttpPut("/user/reset_password")]
+    public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordByToken resetPasswordByToken)
+    {
+        try
+        {
+            var res = await _userService.ResetPasswordByVerifyToken(resetPasswordByToken);
+            return Ok(res);
+        }
+        catch (Exception exception)
+        {
+            var actionResult = new ServiceResult(-1, Resources.error, exception.Message, null, "500");
+            return Ok(actionResult);
+        }
+    }
+
+    [HttpPost("/account/send_activate_email")]
+
+    public async Task<IActionResult> SendActiveEmail([FromBody] SendActiveEmail sendActiveEmail)
+    {
+        {
+            try
+            {
+                var res = await _userService.SendActiveEmail(sendActiveEmail);
+                return Ok(res);
+            }
+            catch (Exception exception)
+            {
+                var actionResult = new ServiceResult(-1, Resources.error, exception.Message, null, "500");
+                return Ok(actionResult);
+            }
+        }
+    }
+
+    [HttpGet("/account/activate_account")]
+    public async Task<IActionResult> ActiveAccount()
+    {
+        try
+        {
+            var res = await _userService.ActiveAccount();
+            if (res != null)
+            {
+                var actionResult = new ServiceResult(1, "Cập nhật thông tin tài khoản thành công!", "", res, null);
+                return Ok(actionResult);
+            }
+            else
+            {
+                var actionResult = new ServiceResult(2, "Cập nhật thất bại!", "",
+                    null, "204");
+                return Ok(actionResult);
+            }
+        }
+        catch (Exception exception)
+        {
+            var actionResult = new ServiceResult((int)ApiStatus.Exception, Resources.error, exception.Message, null, "500");
+            return Ok(actionResult);
+        }
+    }
 
     [HttpPut("/user/update_user_info")]
-    public async Task<IActionResult> updateUser([FromBody] UpdateUser userUpdate)
+    public async Task<IActionResult> UpdateUser([FromBody] UpdateUser userUpdate)
     {
         try
         {
@@ -208,29 +266,19 @@ public class UserController : BaseController<UserEntity>
         }
     }
 
-    // [HttpPut("updateStatus")]
-    // public async Task<IActionResult> UpdateStatus([FromBody] UpdateUser userUpdate)
-    // {
-    //     try
-    //     {
-    //         var res = await _userService.UpdateStatus(userUpdate.is_block, userUpdate.user_id);
-    //         if (res != null)
-    //         {
-    //             var actionResult = new ServiceResult((int)ApiStatus.Success, "Cập nhật thông tin khách hàng thành công!", "", null, null);
-    //
-    //             return Ok(actionResult);
-    //         }
-    //         else
-    //         {
-    //             var actionResult = new ServiceResult((int)ApiStatus.Fail, "Cập nhật thất bại!", "",
-    //                 null, "204");
-    //             return Ok(actionResult);
-    //         }
-    //     }
-    //     catch (Exception exception)
-    //     {
-    //         var actionResult = new ServiceResult((int)ApiStatus.Exception, Resources.error, exception.Message, null, "500");
-    //         return Ok(actionResult);
-    //     }
-    // }
+    [HttpGet("/user/logout")]
+
+    public async Task<IActionResult> Logout()
+    {
+        try
+        {
+            var res = new ServiceResult(1, "Logout User!", "", null, "");
+            return Ok(res);
+        }
+        catch (Exception exception)
+        {
+            var actionResult = new ServiceResult((int)ApiStatus.Exception, Resources.error, exception.Message, null, "500");
+            return Ok(actionResult);
+        }
+    }
 }

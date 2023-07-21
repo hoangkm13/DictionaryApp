@@ -4,10 +4,6 @@ namespace Dictionary.Service.DtoEdit.Authentication;
 
 public class ResetPassword
 {
-    /// <summary>
-    ///     user_id
-    /// </summary>
-    public Guid user_id { get; set; }
 
     /// <summary>
     ///     password hiện tại

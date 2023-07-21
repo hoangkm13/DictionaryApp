@@ -45,6 +45,7 @@ namespace Dictionary.Service.Service
             else if (existedDictionary == null)
             {
                 newDictionary.dictionary_id = Guid.NewGuid();
+                ;
                 newDictionary.user_id = userId;
                 newDictionary.dictionary_name = createDictionary.dictionary_name;
                 newDictionary.last_view_at = createDictionary.last_view_at;

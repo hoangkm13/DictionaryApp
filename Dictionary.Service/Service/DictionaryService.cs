@@ -24,8 +24,14 @@ namespace Dictionary.Service.Service
         {
             var newDictionary = new DictionaryEntity();
 
-            var existedDictionaryClone =
-                await _dictionaryRepo.GetByIdAsync<DictionaryEntity>(new Guid(createDictionary.clone_dictionary_id));
+            var existedDictionaryClone = new DictionaryEntity();
+            if (createDictionary.clone_dictionary_id != null)
+            {
+                existedDictionaryClone =
+                    await _dictionaryRepo.GetByIdAsync<DictionaryEntity>(
+                        new Guid(createDictionary.clone_dictionary_id));
+            }
+
             var existedDictionary = (await _dictionaryRepo
                 .GetAsync<DictionaryEntity>("dictionary_name", createDictionary.dictionary_name))?.FirstOrDefault();
 
@@ -142,7 +148,7 @@ namespace Dictionary.Service.Service
             {
                 throw new ValidateException("Từ điển nguồn không có dữ liệu", null, 2003);
             }
-            
+
             if (dictionaryDest == null)
             {
                 throw new ValidateException("Từ điển đích không có dữ liệu", null, 2003);
@@ -150,7 +156,6 @@ namespace Dictionary.Service.Service
 
             if (transferDictionary.is_delete_dest_data)
             {
-                
             }
 
             return dictionaryDest;

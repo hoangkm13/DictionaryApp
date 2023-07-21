@@ -26,7 +26,7 @@ namespace Dictionary.Api.Controllers
             _dictionaryRepo = dictionaryRepo;
         }
 
-        [HttpGet("list")]
+        [HttpGet("get_list_dictionary")]
         public async Task<IActionResult> GetDictionaries()
         {
             try

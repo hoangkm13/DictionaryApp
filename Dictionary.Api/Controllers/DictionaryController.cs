@@ -143,7 +143,7 @@ namespace Dictionary.Api.Controllers
             }
         }
 
-        [HttpDelete("load_dictionary/{dictionary_id}")]
+        [HttpPost("load_dictionary/{dictionary_id}")]
         public async Task<IActionResult> LoadDictionary(Guid dictionary_id)
         {
             try
